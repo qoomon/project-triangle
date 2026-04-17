@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Management Triangle – Interactive Guide</title>
+  <meta name="description" content="Learn about the Iron Triangle of project management: Scope, Cost, and Time trade-offs visualized interactively">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>△</text></svg>">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(to bottom, #fffbeb, #fff, #f0f9ff);
+      color: #1e293b;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Header */
+    .header {
+      position: relative;
+      overflow: hidden;
+      border-bottom: 4px solid #000;
+      background: linear-gradient(to right, #fde047, #fcd34d, #fdba74);
+    }
+
+    .header-dots {
+      position: absolute;
+      inset: 0;
+      opacity: 0.2;
+    }
+
+    .header-content {
+      position: relative;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    .pick-badge {
+      position: absolute;
+      top: 0.5rem;
+      right: 1rem;
+      background: #f472b6;
+      color: #500724;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      border: 3px solid #000;
+      box-shadow: 3px 3px 0 0 #000;
+      font-weight: 900;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      transform: rotate(12deg);
+    }
+
+    h1 {
+      font-size: clamp(1.75rem, 5vw, 3rem);
+      font-weight: 900;
+      text-align: center;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+      text-wrap: balance;
+    }
+
+    h1 .gradient-text {
+      background: linear-gradient(to right, #9333ea, #db2777, #f97316);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .subtitle {
+      text-align: center;
+      margin-top: 0.75rem;
+      font-size: clamp(0.8rem, 2vw, 1.125rem);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #334155;
+    }
+
+    /* Main content */
+    .content {
+      max-width: 768px;
+      margin: 0 auto;
+      padding: 2rem 1rem 3rem;
+    }
+
+    /* Rule panel */
+    .rule-panel {
+      position: relative;
+      text-align: center;
+      margin-bottom: 2rem;
+      background: #fff;
+      border: 4px solid #000;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      box-shadow: 6px 6px 0 0 #000;
+    }
+
+    .rule-badge {
+      position: absolute;
+      top: -0.75rem;
+      left: -0.75rem;
+      background: #38bdf8;
+      color: #0c4a6e;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      border: 2px solid #000;
+      font-size: 0.75rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      box-shadow: 2px 2px 0 0 #000;
+    }
+
+    .rule-panel p {
+      font-size: 1.125rem;
+      font-weight: 500;
+      line-height: 1.6;
+      color: #1e293b;
+      text-wrap: pretty;
+    }
+
+    .rule-panel strong {
+      color: #9333ea;
+    }
+
+    /* Triangle section */
+    .triangle-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    /* Speech bubble */
+    .speech-bubble-wrapper {
+      position: relative;
+    }
+
+    .speech-bubble {
+      position: relative;
+      padding: 1rem 1.5rem;
+      border-radius: 1rem;
+      color: #fff;
+      font-weight: 700;
+      text-align: center;
+      min-width: 280px;
+      max-width: 24rem;
+      border: 4px solid #000;
+      box-shadow: 6px 6px 0 0 #000;
+      transition: background 0.3s;
+    }
+
+    .speech-bubble .emoji-badge {
+      position: absolute;
+      top: -0.75rem;
+      right: -0.75rem;
+      background: #fde047;
+      color: #000;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      border: 3px solid #000;
+      font-size: 0.875rem;
+      font-weight: 900;
+      transform: rotate(12deg);
+      box-shadow: 2px 2px 0 0 #000;
+    }
+
+    .speech-bubble h3 {
+      font-size: clamp(1rem, 3vw, 1.25rem);
+      font-weight: 900;
+      letter-spacing: -0.025em;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+
+    .speech-bubble p {
+      font-size: 0.875rem;
+      margin-top: 0.5rem;
+      font-weight: 500;
+      opacity: 0.95;
+    }
+
+    .speech-tail {
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 16px solid transparent;
+      border-right: 16px solid transparent;
+      border-top: 20px solid;
+      transition: border-top-color 0.3s;
+    }
+
+    .speech-tail-shadow {
+      position: absolute;
+      bottom: -23px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 18px solid transparent;
+      border-right: 18px solid transparent;
+      border-top: 22px solid #000;
+      z-index: -1;
+    }
+
+    /* Tradeoff color states */
+    .tradeoff-cheapfast { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+    .tradeoff-cheapfast .speech-tail { border-top-color: #8b5cf6; }
+    .tradeoff-fastgood { background: linear-gradient(135deg, #ec4899, #f43f5e); }
+    .tradeoff-fastgood .speech-tail { border-top-color: #ec4899; }
+    .tradeoff-cheapgood { background: linear-gradient(135deg, #f59e0b, #f97316); }
+    .tradeoff-cheapgood .speech-tail { border-top-color: #f59e0b; }
+    .tradeoff-default { background: linear-gradient(135deg, #94a3b8, #64748b); }
+    .tradeoff-default .speech-tail { border-top-color: #94a3b8; }
+
+    /* SVG triangle */
+    .triangle-container {
+      position: relative;
+      width: 100%;
+      max-width: 32rem;
+      aspect-ratio: 1.15;
+      margin-top: 1.5rem;
+    }
+
+    .triangle-container svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .corner-group {
+      cursor: pointer;
+    }
+
+    .corner-polygon {
+      transition: transform 0.2s;
+    }
+
+    .section-fill {
+      transition: fill 0.3s;
+    }
+
+    /* Buttons */
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .toggle-btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      font-weight: 900;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border: 4px solid #000;
+      box-shadow: 4px 4px 0 0 #000;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-family: inherit;
+    }
+
+    .toggle-btn:hover {
+      box-shadow: 2px 2px 0 0 #000;
+      transform: translate(2px, 2px);
+    }
+
+    .toggle-btn:active {
+      box-shadow: none;
+      transform: translate(4px, 4px);
+    }
+
+    .toggle-btn.active-fast { background: #38bdf8; color: #082f49; }
+    .toggle-btn.active-cheap { background: #4ade80; color: #14532d; }
+    .toggle-btn.active-good { background: #fb923c; color: #7c2d12; }
+    .toggle-btn.inactive { background: #e2e8f0; color: #64748b; }
+
+    /* Selection display */
+    .selection-display {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 700;
+    }
+
+    .selection-label {
+      color: #64748b;
+    }
+
+    .selection-badges {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .selection-badge {
+      padding: 0.25rem 0.75rem;
+      border-radius: 0.25rem;
+      border: 2px solid #000;
+      font-weight: 900;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      box-shadow: 2px 2px 0 0 #000;
+    }
+
+    .selection-badge.fast { background: #38bdf8; color: #082f49; }
+    .selection-badge.cheap { background: #4ade80; color: #14532d; }
+    .selection-badge.good { background: #fb923c; color: #7c2d12; }
+
+    /* Info cards */
+    .cards {
+      display: grid;
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    @media (min-width: 640px) {
+      .cards { grid-template-columns: repeat(3, 1fr); }
+      .pick-badge { right: 3rem; }
+    }
+
+    .card {
+      position: relative;
+      padding: 1.25rem;
+      border-radius: 0.75rem;
+      border: 4px solid #000;
+      box-shadow: 4px 4px 0 0 #000;
+    }
+
+    .card-time { background: #e0f2fe; }
+    .card-cost { background: #dcfce7; }
+    .card-quality { background: #ffedd5; }
+
+    .card-icon {
+      position: absolute;
+      top: -0.5rem;
+      right: -0.5rem;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 9999px;
+      border: 3px solid #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 2px 2px 0 0 #000;
+    }
+
+    .card-icon.time { background: #38bdf8; }
+    .card-icon.cost { background: #4ade80; }
+    .card-icon.quality { background: #fb923c; }
+
+    .card-icon svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+
+    .card h3 {
+      font-weight: 900;
+      font-size: 1.125rem;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+      color: #0f172a;
+    }
+
+    .card p {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #334155;
+    }
+
+    /* Key takeaway */
+    .takeaway {
+      position: relative;
+      margin-top: 2.5rem;
+      background: linear-gradient(to right, #c084fc, #f472b6, #fb923c);
+      border: 4px solid #000;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 6px 6px 0 0 #000;
+      overflow: hidden;
+    }
+
+    .takeaway-dots {
+      position: absolute;
+      inset: 0;
+      opacity: 0.1;
+    }
+
+    .takeaway-content {
+      position: relative;
+    }
+
+    .takeaway-badge {
+      display: inline-block;
+      background: #fde047;
+      color: #713f12;
+      padding: 0.25rem 1rem;
+      border-radius: 9999px;
+      border: 3px solid #000;
+      font-size: 0.875rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+      box-shadow: 2px 2px 0 0 #000;
+    }
+
+    .takeaway p {
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.125rem;
+      max-width: 36rem;
+      margin: 0 auto;
+      text-wrap: pretty;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+
+    /* Footer */
+    .footer {
+      border-top: 4px solid #000;
+      margin-top: 3rem;
+      padding: 1.5rem;
+      text-align: center;
+      background: #f1f5f9;
+    }
+
+    .footer p {
+      font-weight: 700;
+      color: #64748b;
+      text-transform: uppercase;
+      font-size: 0.875rem;
+      letter-spacing: 0.05em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <svg class="header-dots" width="100%" height="100%">
+      <defs>
+        <pattern id="header-dots" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+          <circle cx="5" cy="5" r="2" fill="black"/>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#header-dots)"/>
+    </svg>
+    <div class="header-content">
+      <div class="pick-badge">Pick 2!</div>
+      <h1>
+        THE PROJECT MANAGEMENT<br>
+        <span class="gradient-text">TRIANGLE</span>
+      </h1>
+      <p class="subtitle">A.K.A. The Iron Triangle or Triple Constraint</p>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <section class="content">
+    <!-- Rule panel -->
+    <div class="rule-panel">
+      <div class="rule-badge">The Rule</div>
+      <p>
+        In project management, you can only optimize for
+        <strong>TWO OUT OF THREE</strong>
+        constraints: Speed, Cost, and Quality. Click on the corners of the
+        triangle to explore the trade-offs!
+      </p>
+    </div>
+
+    <!-- Interactive Triangle -->
+    <div class="triangle-wrapper">
+      <!-- Speech bubble -->
+      <div class="speech-bubble-wrapper">
+        <div id="speech-bubble" class="speech-bubble tradeoff-cheapfast">
+          <div id="emoji-badge" class="emoji-badge">POW!</div>
+          <h3 id="tradeoff-title">CHEAP &amp; QUICK = LOW QUALITY!</h3>
+          <p id="tradeoff-desc">You'll get it fast and cheap, but don't expect perfection! Bugs, shortcuts, and technical debt await...</p>
+          <div class="speech-tail"></div>
+          <div class="speech-tail-shadow"></div>
+        </div>
+      </div>
+
+      <!-- SVG Triangle -->
+      <div class="triangle-container">
+        <svg viewBox="0 0 400 350">
+          <defs>
+            <pattern id="dots-purple" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse">
+              <circle cx="3" cy="3" r="1.2" fill="rgba(139,92,246,0.3)"/>
+            </pattern>
+            <pattern id="dots-pink" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse">
+              <circle cx="3" cy="3" r="1.2" fill="rgba(236,72,153,0.3)"/>
+            </pattern>
+            <pattern id="dots-orange" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse">
+              <circle cx="3" cy="3" r="1.2" fill="rgba(251,146,60,0.3)"/>
+            </pattern>
+          </defs>
+
+          <!-- Main triangle shadow -->
+          <polygon points="204,24 384,334 24,334" fill="black"/>
+          <!-- Main triangle -->
+          <polygon points="200,20 380,330 20,330" fill="white" stroke="black" stroke-width="5"/>
+
+          <!-- Center sections -->
+          <!-- Top-left (Cheap & Quick) -->
+          <polygon id="section-cheapfast" class="section-fill" points="200,100 115,245 200,195" fill="#C4B5FD" stroke="black" stroke-width="3"/>
+          <polygon id="section-cheapfast-dots" points="200,100 115,245 200,195" fill="url(#dots-purple)"/>
+
+          <!-- Top-right (Fast & Good) -->
+          <polygon id="section-fastgood" class="section-fill" points="200,100 200,195 285,245" fill="#F1F5F9" stroke="black" stroke-width="3"/>
+          <polygon id="section-fastgood-dots" points="200,100 200,195 285,245" fill="url(#dots-pink)" style="display:none"/>
+
+          <!-- Bottom (Cheap & Good) -->
+          <polygon id="section-cheapgood" class="section-fill" points="115,245 200,195 285,245 200,310" fill="#F1F5F9" stroke="black" stroke-width="3"/>
+          <polygon id="section-cheapgood-dots" points="115,245 200,195 285,245 200,310" fill="url(#dots-orange)" style="display:none"/>
+
+          <!-- Top corner - FAST -->
+          <g class="corner-group" data-corner="fast">
+            <polygon id="corner-fast" class="corner-polygon" points="200,15 150,115 250,115" fill="#38BDF8" stroke="black" stroke-width="4" style="transform-origin:200px 70px"/>
+            <g id="lines-fast">
+              <line x1="200" y1="5" x2="200" y2="-5" stroke="black" stroke-width="3"/>
+              <line x1="170" y1="25" x2="160" y2="15" stroke="black" stroke-width="2"/>
+              <line x1="230" y1="25" x2="240" y2="15" stroke="black" stroke-width="2"/>
+            </g>
+            <rect x="155" y="48" width="90" height="45" rx="4" fill="#0EA5E9" stroke="black" stroke-width="2.5"/>
+            <rect id="label-bg-fast" x="158" y="51" width="84" height="39" rx="2" fill="#38BDF8"/>
+            <text x="200" y="68" text-anchor="middle" font-size="13" font-weight="900" id="label1-fast" fill="#0C4A6E" style="font-family:system-ui,sans-serif;letter-spacing:0.5px">DONE</text>
+            <text x="200" y="84" text-anchor="middle" font-size="13" font-weight="900" id="label2-fast" fill="#0C4A6E" style="font-family:system-ui,sans-serif;letter-spacing:0.5px">QUICKLY</text>
+          </g>
+
+          <!-- Bottom-left corner - CHEAP -->
+          <g class="corner-group" data-corner="cheap">
+            <polygon id="corner-cheap" class="corner-polygon" points="20,330 105,250 105,330" fill="#4ADE80" stroke="black" stroke-width="4" style="transform-origin:65px 290px"/>
+            <g id="lines-cheap">
+              <line x1="30" y1="340" x2="20" y2="350" stroke="black" stroke-width="2"/>
+              <line x1="10" y1="320" x2="0" y2="320" stroke="black" stroke-width="2"/>
+            </g>
+            <rect x="25" y="275" width="70" height="45" rx="4" fill="#22C55E" stroke="black" stroke-width="2.5"/>
+            <rect id="label-bg-cheap" x="28" y="278" width="64" height="39" rx="2" fill="#4ADE80"/>
+            <text x="60" y="296" text-anchor="middle" font-size="13" font-weight="900" id="label1-cheap" fill="#14532D" style="font-family:system-ui,sans-serif;letter-spacing:0.5px">LOW</text>
+            <text x="60" y="312" text-anchor="middle" font-size="13" font-weight="900" id="label2-cheap" fill="#14532D" style="font-family:system-ui,sans-serif;letter-spacing:0.5px">COST</text>
+          </g>
+
+          <!-- Bottom-right corner - GOOD -->
+          <g class="corner-group" data-corner="good">
+            <polygon id="corner-good" class="corner-polygon" points="380,330 295,330 295,250" fill="#CBD5E1" stroke="black" stroke-width="4" style="transform-origin:335px 290px"/>
+            <g id="lines-good" style="display:none">
+              <line x1="370" y1="340" x2="380" y2="350" stroke="black" stroke-width="2"/>
+              <line x1="390" y1="320" x2="400" y2="320" stroke="black" stroke-width="2"/>
+            </g>
+            <rect x="305" y="275" width="70" height="45" rx="4" fill="#94A3B8" stroke="black" stroke-width="2.5"/>
+            <rect id="label-bg-good" x="308" y="278" width="64" height="39" rx="2" fill="#CBD5E1"/>
+            <text x="340" y="296" text-anchor="middle" font-size="13" font-weight="900" id="label1-good" fill="#475569" style="font-family:system-ui,sans-serif;letter-spacing:0.5px">HIGH</text>
+            <text x="340" y="312" text-anchor="middle" font-size="13" font-weight="900" id="label2-good" fill="#475569" style="font-family:system-ui,sans-serif;letter-spacing:0.5px">QUALITY</text>
+          </g>
+
+          <!-- Inner trade-off labels -->
+          <!-- Top-left bubble (Cheap & Quick = Low Quality) -->
+          <g>
+            <path d="M122,148 L182,148 Q188,148 188,154 L188,194 Q188,200 182,200 L162,200 L155,212 L153,200 L122,200 Q116,200 116,194 L116,154 Q116,148 122,148 Z" fill="black" transform="translate(2,2)"/>
+            <path d="M122,148 L182,148 Q188,148 188,154 L188,194 Q188,200 182,200 L162,200 L155,212 L153,200 L122,200 Q116,200 116,194 L116,154 Q116,148 122,148 Z" fill="white" stroke="black" stroke-width="2.5"/>
+            <text x="152" y="193" text-anchor="middle" font-size="9" font-weight="900" fill="#7C3AED" style="font-family:system-ui,sans-serif">LOW QUALITY</text>
+          </g>
+
+          <!-- Top-right bubble (Fast & Good = Expensive) -->
+          <g>
+            <path d="M218,148 L278,148 Q284,148 284,154 L284,194 Q284,200 278,200 L248,200 L245,212 L238,200 L218,200 Q212,200 212,194 L212,154 Q212,148 218,148 Z" fill="black" transform="translate(2,2)"/>
+            <path d="M218,148 L278,148 Q284,148 284,154 L284,194 Q284,200 278,200 L248,200 L245,212 L238,200 L218,200 Q212,200 212,194 L212,154 Q212,148 218,148 Z" fill="white" stroke="black" stroke-width="2.5"/>
+            <text x="248" y="193" text-anchor="middle" font-size="9" font-weight="900" fill="#DB2777" style="font-family:system-ui,sans-serif">EXPENSIVE</text>
+          </g>
+
+          <!-- Bottom bubble (Cheap & Good = Low Priority) -->
+          <g>
+            <path d="M148,248 L252,248 Q258,248 258,254 L258,288 Q258,294 252,294 L208,294 L200,280 L192,294 L148,294 Q142,294 142,288 L142,254 Q142,248 148,248 Z" fill="black" transform="translate(2,2)"/>
+            <path d="M148,248 L252,248 Q258,248 258,254 L258,288 Q258,294 252,294 L208,294 L200,280 L192,294 L148,294 Q142,294 142,288 L142,254 Q142,248 148,248 Z" fill="white" stroke="black" stroke-width="2.5"/>
+            <text x="200" y="287" text-anchor="middle" font-size="9" font-weight="900" fill="#D97706" style="font-family:system-ui,sans-serif">LOW PRIORITY</text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Toggle buttons -->
+      <div class="button-row">
+        <button class="toggle-btn active-fast" data-toggle="fast" type="button">Fast</button>
+        <button class="toggle-btn active-cheap" data-toggle="cheap" type="button">Cheap</button>
+        <button class="toggle-btn inactive" data-toggle="good" type="button">Good</button>
+      </div>
+
+      <!-- Selection display -->
+      <div class="selection-display">
+        <span class="selection-label">YOU PICKED:</span>
+        <div id="selection-badges" class="selection-badges">
+          <span class="selection-badge fast">Fast</span>
+          <span class="selection-badge cheap">Cheap</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Educational cards -->
+    <div class="cards">
+      <div class="card card-time">
+        <div class="card-icon time">
+          <svg fill="none" viewBox="0 0 24 24" stroke="#082f49" stroke-width="3">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+        </div>
+        <h3>Time (Speed)</h3>
+        <p>How quickly the project needs to be delivered. Shorter timelines require more resources or reduced scope.</p>
+      </div>
+
+      <div class="card card-cost">
+        <div class="card-icon cost">
+          <svg fill="none" viewBox="0 0 24 24" stroke="#14532d" stroke-width="3">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+        </div>
+        <h3>Cost (Budget)</h3>
+        <p>The financial resources allocated to the project. Lower budgets mean longer timelines or reduced features.</p>
+      </div>
+
+      <div class="card card-quality">
+        <div class="card-icon quality">
+          <svg fill="none" viewBox="0 0 24 24" stroke="#7c2d12" stroke-width="3">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+          </svg>
+        </div>
+        <h3>Quality (Scope)</h3>
+        <p>The level of features, polish, and overall excellence. Higher quality requires more time or money.</p>
+      </div>
+    </div>
+
+    <!-- Key takeaway -->
+    <div class="takeaway">
+      <svg class="takeaway-dots" width="100%" height="100%">
+        <defs>
+          <pattern id="takeaway-dots" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse">
+            <circle cx="4" cy="4" r="1.5" fill="black"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#takeaway-dots)"/>
+      </svg>
+      <div class="takeaway-content">
+        <div class="takeaway-badge">Key Takeaway</div>
+        <p>"Pick any two"—this constraint forces project managers to make strategic decisions. Understanding these trade-offs helps set realistic expectations!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Interactive Project Management Triangle Visualization</p>
+  </footer>
+
+  <script>
+    var state = { fast: true, cheap: true, good: false };
+
+    var tradeoffs = {
+      cheapfast: {
+        title: "CHEAP & QUICK = LOW QUALITY!",
+        desc: "You'll get it fast and cheap, but don't expect perfection! Bugs, shortcuts, and technical debt await...",
+        emoji: "POW!",
+        cls: "tradeoff-cheapfast"
+      },
+      fastgood: {
+        title: "FAST & GOOD = EXPENSIVE!",
+        desc: "Premium quality at lightning speed? That'll cost ya! Get ready to open that wallet wide...",
+        emoji: "KA-CHING!",
+        cls: "tradeoff-fastgood"
+      },
+      cheapgood: {
+        title: "CHEAP & GOOD = SLOW!",
+        desc: "Quality work on a budget is possible... if you've got time to spare. Patience is a virtue!",
+        emoji: "TICK TOCK!",
+        cls: "tradeoff-cheapgood"
+      },
+      none: {
+        title: "PICK TWO!",
+        desc: "Click on the corners to choose your constraints and discover the trade-off!",
+        emoji: "CHOOSE!",
+        cls: "tradeoff-default"
+      }
+    };
+
+    function getTradeoffKey() {
+      if (state.fast && state.cheap && !state.good) return "cheapfast";
+      if (state.fast && state.good && !state.cheap) return "fastgood";
+      if (state.cheap && state.good && !state.fast) return "cheapgood";
+      return "none";
+    }
+
+    function toggle(constraint) {
+      state[constraint] = !state[constraint];
+      var count = Number(state.fast) + Number(state.cheap) + Number(state.good);
+
+      if (count > 2) {
+        var others = ["fast", "cheap", "good"].filter(function(k) { return k !== constraint && state[k]; });
+        var pick = others[Math.floor(Math.random() * others.length)];
+        state[pick] = false;
+      }
+
+      render();
+    }
+
+    function render() {
+      var key = getTradeoffKey();
+      var t = tradeoffs[key];
+
+      // Speech bubble
+      var bubble = document.getElementById("speech-bubble");
+      bubble.className = "speech-bubble " + t.cls;
+      document.getElementById("tradeoff-title").textContent = t.title;
+      document.getElementById("tradeoff-desc").textContent = t.desc;
+      document.getElementById("emoji-badge").textContent = t.emoji;
+
+      // Triangle sections
+      document.getElementById("section-cheapfast").setAttribute("fill", state.fast && state.cheap ? "#C4B5FD" : "#F1F5F9");
+      document.getElementById("section-cheapfast-dots").style.display = state.fast && state.cheap ? "" : "none";
+      document.getElementById("section-fastgood").setAttribute("fill", state.fast && state.good ? "#FBCFE8" : "#F1F5F9");
+      document.getElementById("section-fastgood-dots").style.display = state.fast && state.good ? "" : "none";
+      document.getElementById("section-cheapgood").setAttribute("fill", state.cheap && state.good ? "#FDE68A" : "#F1F5F9");
+      document.getElementById("section-cheapgood-dots").style.display = state.cheap && state.good ? "" : "none";
+
+      // Corners
+      renderCorner("fast", state.fast, "#38BDF8", "#0EA5E9", "#0C4A6E", "#CBD5E1", "#94A3B8", "#475569");
+      renderCorner("cheap", state.cheap, "#4ADE80", "#22C55E", "#14532D", "#CBD5E1", "#94A3B8", "#475569");
+      renderCorner("good", state.good, "#FB923C", "#F97316", "#7C2D12", "#CBD5E1", "#94A3B8", "#475569");
+
+      // Action lines
+      document.getElementById("lines-fast").style.display = state.fast ? "" : "none";
+      document.getElementById("lines-cheap").style.display = state.cheap ? "" : "none";
+      document.getElementById("lines-good").style.display = state.good ? "" : "none";
+
+      // Buttons
+      document.querySelectorAll(".toggle-btn").forEach(function(btn) {
+        var c = btn.getAttribute("data-toggle");
+        btn.className = "toggle-btn " + (state[c] ? "active-" + c : "inactive");
+      });
+
+      // Selection badges
+      var badges = document.getElementById("selection-badges");
+      badges.innerHTML = "";
+      ["fast", "cheap", "good"].forEach(function(c) {
+        if (state[c]) {
+          var span = document.createElement("span");
+          span.className = "selection-badge " + c;
+          span.textContent = c.charAt(0).toUpperCase() + c.slice(1);
+          badges.appendChild(span);
+        }
+      });
+    }
+
+    function renderCorner(name, active, fillActive, rectActive, textActive, fillInactive, rectInactive, textInactive) {
+      document.getElementById("corner-" + name).setAttribute("fill", active ? fillActive : fillInactive);
+      document.getElementById("label-bg-" + name).setAttribute("fill", active ? fillActive : fillInactive);
+      document.getElementById("label1-" + name).setAttribute("fill", active ? textActive : textInactive);
+      document.getElementById("label2-" + name).setAttribute("fill", active ? textActive : textInactive);
+
+      // Outer rect behind label
+      var labelBg = document.getElementById("label-bg-" + name);
+      var outerRect = labelBg.previousElementSibling;
+      if (outerRect && outerRect.tagName === "rect") {
+        outerRect.setAttribute("fill", active ? rectActive : rectInactive);
+      }
+    }
+
+    // Event listeners for corner clicks
+    document.querySelectorAll(".corner-group").forEach(function(g) {
+      g.addEventListener("click", function() {
+        toggle(g.getAttribute("data-corner"));
+      });
+    });
+
+    // Event listeners for buttons
+    document.querySelectorAll(".toggle-btn").forEach(function(btn) {
+      btn.addEventListener("click", function() {
+        toggle(btn.getAttribute("data-toggle"));
+      });
+    });
+
+    // Hover effects for corners
+    document.querySelectorAll(".corner-group").forEach(function(g) {
+      var poly = g.querySelector(".corner-polygon");
+      g.addEventListener("mouseenter", function() { poly.style.transform = "scale(1.05)"; });
+      g.addEventListener("mouseleave", function() { poly.style.transform = "scale(1)"; });
+    });
+  </script>
+</body>
+</html>
