@@ -177,9 +177,15 @@ export function ProjectTriangle() {
           />
 
           {/* Center sections - trade-off areas with comic style */}
-          {/* Top-left section (Cheap & Quick) */}
+          {/* Inner triangle vertices align with each corner's inner boundary:
+              top=(200,115) matches FAST base midpoint,
+              left=(105,250) matches CHEAP inner vertex,
+              right=(295,250) matches GOOD inner vertex.
+              Centroid (200,205) divides them into 3 equal triangles. */}
+
+          {/* Top-left section (Fast & Cheap) */}
           <polygon
-            points="200,100 115,245 200,195"
+            points="200,115 105,250 200,205"
             className="transition-all duration-300"
             fill={selected.fast && selected.cheap ? "#C4B5FD" : "#F1F5F9"}
             stroke="black"
@@ -187,14 +193,14 @@ export function ProjectTriangle() {
           />
           {selected.fast && selected.cheap && (
             <polygon
-              points="200,100 115,245 200,195"
+              points="200,115 105,250 200,205"
               fill="url(#dots-purple)"
             />
           )}
 
           {/* Top-right section (Fast & Good) */}
           <polygon
-            points="200,100 200,195 285,245"
+            points="200,115 200,205 295,250"
             className="transition-all duration-300"
             fill={selected.fast && selected.good ? "#FBCFE8" : "#F1F5F9"}
             stroke="black"
@@ -202,14 +208,14 @@ export function ProjectTriangle() {
           />
           {selected.fast && selected.good && (
             <polygon
-              points="200,100 200,195 285,245"
+              points="200,115 200,205 295,250"
               fill="url(#dots-pink)"
             />
           )}
 
           {/* Bottom section (Cheap & Good) */}
           <polygon
-            points="115,245 200,195 285,245 200,310"
+            points="105,250 200,205 295,250"
             className="transition-all duration-300"
             fill={selected.cheap && selected.good ? "#FDE68A" : "#F1F5F9"}
             stroke="black"
@@ -217,7 +223,7 @@ export function ProjectTriangle() {
           />
           {selected.cheap && selected.good && (
             <polygon
-              points="115,245 200,195 285,245 200,310"
+              points="105,250 200,205 295,250"
               fill="url(#dots-orange)"
             />
           )}
