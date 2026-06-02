@@ -514,78 +514,17 @@
 
           <!-- Center sections -->
           <!-- Top-left (Cheap & Quick) -->
-          <polygon id="section-cheapfast" class="section-fill" points="200,100 115,245 200,195" fill="#C4B5FD" stroke="black" stroke-width="3"/>
-          <polygon id="section-cheapfast-dots" points="200,100 115,245 200,195" fill="url(#dots-purple)"/>
+          <polygon id="section-cheapfast" class="section-fill" points="200,20 20,330 200,227" fill="#C4B5FD" stroke="black" stroke-width="3"/>
+          <polygon id="section-cheapfast-dots" points="200,20 20,330 200,227" fill="url(#dots-purple)"/>
 
           <!-- Top-right (Fast & Good) -->
-          <polygon id="section-fastgood" class="section-fill" points="200,100 200,195 285,245" fill="#F1F5F9" stroke="black" stroke-width="3"/>
-          <polygon id="section-fastgood-dots" points="200,100 200,195 285,245" fill="url(#dots-pink)" style="display:none"/>
+          <polygon id="section-fastgood" class="section-fill" points="200,20 380,330 200,227" fill="#F1F5F9" stroke="black" stroke-width="3"/>
+          <polygon id="section-fastgood-dots" points="200,20 380,330 200,227" fill="url(#dots-pink)" style="display:none"/>
 
           <!-- Bottom (Cheap & Good) -->
-          <polygon id="section-cheapgood" class="section-fill" points="115,245 200,195 285,245 200,310" fill="#F1F5F9" stroke="black" stroke-width="3"/>
-          <polygon id="section-cheapgood-dots" points="115,245 200,195 285,245 200,310" fill="url(#dots-orange)" style="display:none"/>
+          <polygon id="section-cheapgood" class="section-fill" points="20,330 380,330 200,227" fill="#F1F5F9" stroke="black" stroke-width="3"/>
+          <polygon id="section-cheapgood-dots" points="20,330 380,330 200,227" fill="url(#dots-orange)" style="display:none"/>
 
-          <!-- Top corner - FAST -->
-          <g class="corner-group" data-corner="fast">
-            <polygon id="corner-fast" class="corner-polygon" points="200,15 150,115 250,115" fill="#38BDF8" stroke="black" stroke-width="4" style="transform-origin:200px 70px"/>
-            <g id="lines-fast">
-              <line x1="200" y1="5" x2="200" y2="-5" stroke="black" stroke-width="3"/>
-              <line x1="170" y1="25" x2="160" y2="15" stroke="black" stroke-width="2"/>
-              <line x1="230" y1="25" x2="240" y2="15" stroke="black" stroke-width="2"/>
-            </g>
-            <rect x="155" y="48" width="90" height="45" rx="4" fill="#0EA5E9" stroke="black" stroke-width="2.5"/>
-            <rect id="label-bg-fast" x="158" y="51" width="84" height="39" rx="2" fill="#38BDF8"/>
-            <text x="200" y="68" text-anchor="middle" font-size="13" font-weight="900" id="label1-fast" fill="#0C4A6E" style="font-family:system-ui,sans-serif;letter-spacing:0.5px">DONE</text>
-            <text x="200" y="84" text-anchor="middle" font-size="13" font-weight="900" id="label2-fast" fill="#0C4A6E" style="font-family:system-ui,sans-serif;letter-spacing:0.5px">QUICKLY</text>
-          </g>
-
-          <!-- Bottom-left corner - CHEAP -->
-          <g class="corner-group" data-corner="cheap">
-            <polygon id="corner-cheap" class="corner-polygon" points="20,330 105,250 105,330" fill="#4ADE80" stroke="black" stroke-width="4" style="transform-origin:65px 290px"/>
-            <g id="lines-cheap">
-              <line x1="30" y1="340" x2="20" y2="350" stroke="black" stroke-width="2"/>
-              <line x1="10" y1="320" x2="0" y2="320" stroke="black" stroke-width="2"/>
-            </g>
-            <rect x="25" y="275" width="70" height="45" rx="4" fill="#22C55E" stroke="black" stroke-width="2.5"/>
-            <rect id="label-bg-cheap" x="28" y="278" width="64" height="39" rx="2" fill="#4ADE80"/>
-            <text x="60" y="296" text-anchor="middle" font-size="13" font-weight="900" id="label1-cheap" fill="#14532D" style="font-family:system-ui,sans-serif;letter-spacing:0.5px">LOW</text>
-            <text x="60" y="312" text-anchor="middle" font-size="13" font-weight="900" id="label2-cheap" fill="#14532D" style="font-family:system-ui,sans-serif;letter-spacing:0.5px">COST</text>
-          </g>
-
-          <!-- Bottom-right corner - GOOD -->
-          <g class="corner-group" data-corner="good">
-            <polygon id="corner-good" class="corner-polygon" points="380,330 295,330 295,250" fill="#CBD5E1" stroke="black" stroke-width="4" style="transform-origin:335px 290px"/>
-            <g id="lines-good" style="display:none">
-              <line x1="370" y1="340" x2="380" y2="350" stroke="black" stroke-width="2"/>
-              <line x1="390" y1="320" x2="400" y2="320" stroke="black" stroke-width="2"/>
-            </g>
-            <rect x="305" y="275" width="70" height="45" rx="4" fill="#94A3B8" stroke="black" stroke-width="2.5"/>
-            <rect id="label-bg-good" x="308" y="278" width="64" height="39" rx="2" fill="#CBD5E1"/>
-            <text x="340" y="296" text-anchor="middle" font-size="13" font-weight="900" id="label1-good" fill="#475569" style="font-family:system-ui,sans-serif;letter-spacing:0.5px">HIGH</text>
-            <text x="340" y="312" text-anchor="middle" font-size="13" font-weight="900" id="label2-good" fill="#475569" style="font-family:system-ui,sans-serif;letter-spacing:0.5px">QUALITY</text>
-          </g>
-
-          <!-- Inner trade-off labels -->
-          <!-- Top-left bubble (Cheap & Quick = Low Quality) -->
-          <g>
-            <path d="M122,148 L182,148 Q188,148 188,154 L188,194 Q188,200 182,200 L162,200 L155,212 L153,200 L122,200 Q116,200 116,194 L116,154 Q116,148 122,148 Z" fill="black" transform="translate(2,2)"/>
-            <path d="M122,148 L182,148 Q188,148 188,154 L188,194 Q188,200 182,200 L162,200 L155,212 L153,200 L122,200 Q116,200 116,194 L116,154 Q116,148 122,148 Z" fill="white" stroke="black" stroke-width="2.5"/>
-            <text x="152" y="193" text-anchor="middle" font-size="9" font-weight="900" fill="#7C3AED" style="font-family:system-ui,sans-serif">LOW QUALITY</text>
-          </g>
-
-          <!-- Top-right bubble (Fast & Good = Expensive) -->
-          <g>
-            <path d="M218,148 L278,148 Q284,148 284,154 L284,194 Q284,200 278,200 L248,200 L245,212 L238,200 L218,200 Q212,200 212,194 L212,154 Q212,148 218,148 Z" fill="black" transform="translate(2,2)"/>
-            <path d="M218,148 L278,148 Q284,148 284,154 L284,194 Q284,200 278,200 L248,200 L245,212 L238,200 L218,200 Q212,200 212,194 L212,154 Q212,148 218,148 Z" fill="white" stroke="black" stroke-width="2.5"/>
-            <text x="248" y="193" text-anchor="middle" font-size="9" font-weight="900" fill="#DB2777" style="font-family:system-ui,sans-serif">EXPENSIVE</text>
-          </g>
-
-          <!-- Bottom bubble (Cheap & Good = Low Priority) -->
-          <g>
-            <path d="M148,248 L252,248 Q258,248 258,254 L258,288 Q258,294 252,294 L208,294 L200,280 L192,294 L148,294 Q142,294 142,288 L142,254 Q142,248 148,248 Z" fill="black" transform="translate(2,2)"/>
-            <path d="M148,248 L252,248 Q258,248 258,254 L258,288 Q258,294 252,294 L208,294 L200,280 L192,294 L148,294 Q142,294 142,288 L142,254 Q142,248 148,248 Z" fill="white" stroke="black" stroke-width="2.5"/>
-            <text x="200" y="287" text-anchor="middle" font-size="9" font-weight="900" fill="#D97706" style="font-family:system-ui,sans-serif">LOW PRIORITY</text>
-          </g>
         </svg>
       </div>
 
@@ -730,16 +669,6 @@
       document.getElementById("section-cheapgood").setAttribute("fill", state.cheap && state.good ? "#FDE68A" : "#F1F5F9");
       document.getElementById("section-cheapgood-dots").style.display = state.cheap && state.good ? "" : "none";
 
-      // Corners
-      renderCorner("fast", state.fast, "#38BDF8", "#0EA5E9", "#0C4A6E", "#CBD5E1", "#94A3B8", "#475569");
-      renderCorner("cheap", state.cheap, "#4ADE80", "#22C55E", "#14532D", "#CBD5E1", "#94A3B8", "#475569");
-      renderCorner("good", state.good, "#FB923C", "#F97316", "#7C2D12", "#CBD5E1", "#94A3B8", "#475569");
-
-      // Action lines
-      document.getElementById("lines-fast").style.display = state.fast ? "" : "none";
-      document.getElementById("lines-cheap").style.display = state.cheap ? "" : "none";
-      document.getElementById("lines-good").style.display = state.good ? "" : "none";
-
       // Buttons
       document.querySelectorAll(".toggle-btn").forEach(function(btn) {
         var c = btn.getAttribute("data-toggle");
@@ -759,27 +688,6 @@
       });
     }
 
-    function renderCorner(name, active, fillActive, rectActive, textActive, fillInactive, rectInactive, textInactive) {
-      document.getElementById("corner-" + name).setAttribute("fill", active ? fillActive : fillInactive);
-      document.getElementById("label-bg-" + name).setAttribute("fill", active ? fillActive : fillInactive);
-      document.getElementById("label1-" + name).setAttribute("fill", active ? textActive : textInactive);
-      document.getElementById("label2-" + name).setAttribute("fill", active ? textActive : textInactive);
-
-      // Outer rect behind label
-      var labelBg = document.getElementById("label-bg-" + name);
-      var outerRect = labelBg.previousElementSibling;
-      if (outerRect && outerRect.tagName === "rect") {
-        outerRect.setAttribute("fill", active ? rectActive : rectInactive);
-      }
-    }
-
-    // Event listeners for corner clicks
-    document.querySelectorAll(".corner-group").forEach(function(g) {
-      g.addEventListener("click", function() {
-        toggle(g.getAttribute("data-corner"));
-      });
-    });
-
     // Event listeners for buttons
     document.querySelectorAll(".toggle-btn").forEach(function(btn) {
       btn.addEventListener("click", function() {
@@ -787,12 +695,6 @@
       });
     });
 
-    // Hover effects for corners
-    document.querySelectorAll(".corner-group").forEach(function(g) {
-      var poly = g.querySelector(".corner-polygon");
-      g.addEventListener("mouseenter", function() { poly.style.transform = "scale(1.05)"; });
-      g.addEventListener("mouseleave", function() { poly.style.transform = "scale(1)"; });
-    });
   </script>
 </body>
 </html>
