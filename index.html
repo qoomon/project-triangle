@@ -227,7 +227,7 @@
       position: relative;
       width: 100%;
       max-width: 44rem;
-      aspect-ratio: 1.36;
+      aspect-ratio: 1.22;
       margin-top: 1.5rem;
     }
 
@@ -494,7 +494,7 @@
 
       <!-- SVG Triangle -->
       <div class="triangle-container">
-        <svg viewBox="-110 -90 620 455">
+        <svg viewBox="-10 5 420 345">
           <defs>
             <pattern id="dots-purple" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse">
               <circle cx="3" cy="3" r="1.2" fill="rgba(139,92,246,0.3)"/>
@@ -526,33 +526,36 @@
           <polygon id="section-cheapgood-dots" points="20,330 380,330 200,227" fill="url(#dots-orange)" style="display:none"/>
 
           <!-- Top corner speech bubble - FAST -->
+          <!-- Spike base at ellipse centre; ellipse drawn on top covers the base, only the tip protrudes -->
           <g style="cursor:pointer" onclick="toggle('fast')">
-            <polygon transform="translate(3,3)" points="193,36 207,36 200,64" fill="black"/>
-            <polygon id="bubble-spike-fast" points="193,36 207,36 200,64" fill="#38BDF8" stroke="black" stroke-width="2.5" stroke-linejoin="round"/>
-            <ellipse transform="translate(3,3)" cx="200" cy="20" rx="65" ry="28" fill="black"/>
-            <ellipse id="bubble-bg-fast" cx="200" cy="20" rx="65" ry="28" fill="#38BDF8" stroke="black" stroke-width="2.5"/>
-            <text x="200" y="15" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label1-fast" fill="#0C4A6E" style="font-family:system-ui,sans-serif;letter-spacing:0.5px">DONE</text>
-            <text x="200" y="30" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label2-fast" fill="#0C4A6E" style="font-family:system-ui,sans-serif;letter-spacing:0.5px">QUICKLY</text>
+            <polygon transform="translate(3,3)" points="190,82 210,82 200,20" fill="black"/>
+            <polygon id="bubble-spike-fast" points="190,82 210,82 200,20" fill="#38BDF8" stroke="black" stroke-width="2.5" stroke-linejoin="round"/>
+            <ellipse transform="translate(3,3)" cx="200" cy="82" rx="65" ry="28" fill="black"/>
+            <ellipse id="bubble-bg-fast" cx="200" cy="82" rx="65" ry="28" fill="#38BDF8" stroke="black" stroke-width="2.5"/>
+            <text x="200" y="75" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label1-fast" fill="#0C4A6E" style="font-family:system-ui,sans-serif;letter-spacing:0.5px">DONE</text>
+            <text x="200" y="90" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label2-fast" fill="#0C4A6E" style="font-family:system-ui,sans-serif;letter-spacing:0.5px">QUICKLY</text>
           </g>
 
           <!-- Bottom-left corner speech bubble - CHEAP -->
+          <!-- Spike perpendicular base oriented toward corner (20,330); base inside ellipse -->
           <g style="cursor:pointer" onclick="toggle('cheap')">
-            <polygon transform="translate(3,3)" points="68,323 68,337 103,330" fill="black"/>
-            <polygon id="bubble-spike-cheap" points="68,323 68,337 103,330" fill="#4ADE80" stroke="black" stroke-width="2.5" stroke-linejoin="round"/>
-            <ellipse transform="translate(3,3)" cx="20" cy="330" rx="65" ry="28" fill="black"/>
-            <ellipse id="bubble-bg-cheap" cx="20" cy="330" rx="65" ry="28" fill="#4ADE80" stroke="black" stroke-width="2.5"/>
-            <text x="20" y="325" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label1-cheap" fill="#14532D" style="font-family:system-ui,sans-serif;letter-spacing:0.5px">LOW</text>
-            <text x="20" y="340" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label2-cheap" fill="#14532D" style="font-family:system-ui,sans-serif;letter-spacing:0.5px">COST</text>
+            <polygon transform="translate(3,3)" points="69,290 79,308 20,330" fill="black"/>
+            <polygon id="bubble-spike-cheap" points="69,290 79,308 20,330" fill="#4ADE80" stroke="black" stroke-width="2.5" stroke-linejoin="round"/>
+            <ellipse transform="translate(3,3)" cx="74" cy="299" rx="65" ry="28" fill="black"/>
+            <ellipse id="bubble-bg-cheap" cx="74" cy="299" rx="65" ry="28" fill="#4ADE80" stroke="black" stroke-width="2.5"/>
+            <text x="74" y="292" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label1-cheap" fill="#14532D" style="font-family:system-ui,sans-serif;letter-spacing:0.5px">LOW</text>
+            <text x="74" y="307" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label2-cheap" fill="#14532D" style="font-family:system-ui,sans-serif;letter-spacing:0.5px">COST</text>
           </g>
 
           <!-- Bottom-right corner speech bubble - GOOD -->
+          <!-- Spike perpendicular base oriented toward corner (380,330); base inside ellipse -->
           <g style="cursor:pointer" onclick="toggle('good')">
-            <polygon transform="translate(3,3)" points="332,323 332,337 297,330" fill="black"/>
-            <polygon id="bubble-spike-good" points="332,323 332,337 297,330" fill="#CBD5E1" stroke="black" stroke-width="2.5" stroke-linejoin="round"/>
-            <ellipse transform="translate(3,3)" cx="380" cy="330" rx="65" ry="28" fill="black"/>
-            <ellipse id="bubble-bg-good" cx="380" cy="330" rx="65" ry="28" fill="#CBD5E1" stroke="black" stroke-width="2.5"/>
-            <text x="380" y="325" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label1-good" fill="#475569" style="font-family:system-ui,sans-serif;letter-spacing:0.5px">HIGH</text>
-            <text x="380" y="340" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label2-good" fill="#475569" style="font-family:system-ui,sans-serif;letter-spacing:0.5px">QUALITY</text>
+            <polygon transform="translate(3,3)" points="321,308 331,290 380,330" fill="black"/>
+            <polygon id="bubble-spike-good" points="321,308 331,290 380,330" fill="#CBD5E1" stroke="black" stroke-width="2.5" stroke-linejoin="round"/>
+            <ellipse transform="translate(3,3)" cx="326" cy="299" rx="65" ry="28" fill="black"/>
+            <ellipse id="bubble-bg-good" cx="326" cy="299" rx="65" ry="28" fill="#CBD5E1" stroke="black" stroke-width="2.5"/>
+            <text x="326" y="292" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label1-good" fill="#475569" style="font-family:system-ui,sans-serif;letter-spacing:0.5px">HIGH</text>
+            <text x="326" y="307" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label2-good" fill="#475569" style="font-family:system-ui,sans-serif;letter-spacing:0.5px">QUALITY</text>
           </g>
 
         </svg>
