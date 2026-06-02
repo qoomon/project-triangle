@@ -146,15 +146,16 @@
     .speech-bubble {
       position: relative;
       padding: 1rem 1.5rem;
-      border-radius: 1rem;
+      border-radius: 0;
       color: #fff;
       font-weight: 700;
       text-align: center;
       min-width: 280px;
       max-width: 24rem;
       border: 4px solid #000;
-      box-shadow: 6px 6px 0 0 #000;
+      box-shadow: 7px 7px 0 0 #000;
       transition: background 0.3s;
+      font-family: 'Comic Sans MS', 'Chalkboard SE', cursive, system-ui, sans-serif;
     }
 
     .speech-bubble .emoji-badge {
@@ -164,26 +165,29 @@
       background: #fde047;
       color: #000;
       padding: 0.25rem 0.75rem;
-      border-radius: 9999px;
+      border-radius: 0;
       border: 3px solid #000;
       font-size: 0.875rem;
       font-weight: 900;
       transform: rotate(12deg);
-      box-shadow: 2px 2px 0 0 #000;
+      box-shadow: 3px 3px 0 0 #000;
+      font-family: 'Comic Sans MS', 'Chalkboard SE', cursive, system-ui, sans-serif;
     }
 
     .speech-bubble h3 {
       font-size: clamp(1rem, 3vw, 1.25rem);
       font-weight: 900;
-      letter-spacing: -0.025em;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      text-shadow: 2px 2px 0 rgba(0,0,0,0.3);
     }
 
     .speech-bubble p {
       font-size: 0.875rem;
       margin-top: 0.5rem;
-      font-weight: 500;
+      font-weight: 700;
       opacity: 0.95;
+      letter-spacing: 0.02em;
     }
 
     .speech-tail {
@@ -201,8 +205,8 @@
 
     .speech-tail-shadow {
       position: absolute;
-      bottom: -23px;
-      left: 50%;
+      bottom: -27px;
+      left: calc(50% + 7px);
       transform: translateX(-50%);
       width: 0;
       height: 0;
@@ -526,36 +530,36 @@
           <polygon id="section-cheapgood-dots" points="20,330 380,330 200,227" fill="url(#dots-orange)" style="display:none"/>
 
           <!-- Top corner speech bubble - FAST -->
-          <!-- Spike base at ellipse centre; ellipse drawn on top covers the base, only the tip protrudes -->
+          <!-- Spike base at rect centre; rect drawn on top covers the base, only the tip protrudes -->
           <g style="cursor:pointer" onclick="toggle('fast')">
-            <polygon transform="translate(3,3)" points="190,82 210,82 200,20" fill="black"/>
+            <polygon transform="translate(4,4)" points="190,82 210,82 200,20" fill="black"/>
             <polygon id="bubble-spike-fast" points="190,82 210,82 200,20" fill="#38BDF8" stroke="black" stroke-width="2.5" stroke-linejoin="round"/>
-            <ellipse transform="translate(3,3)" cx="200" cy="82" rx="65" ry="28" fill="black"/>
-            <ellipse id="bubble-bg-fast" cx="200" cy="82" rx="65" ry="28" fill="#38BDF8" stroke="black" stroke-width="2.5"/>
-            <text x="200" y="75" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label1-fast" fill="#0C4A6E" style="font-family:system-ui,sans-serif;letter-spacing:0.5px">DONE</text>
-            <text x="200" y="90" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label2-fast" fill="#0C4A6E" style="font-family:system-ui,sans-serif;letter-spacing:0.5px">QUICKLY</text>
+            <rect transform="translate(4,4)" x="135" y="54" width="130" height="56" fill="black"/>
+            <rect id="bubble-bg-fast" x="135" y="54" width="130" height="56" fill="#38BDF8" stroke="black" stroke-width="2.5"/>
+            <text x="200" y="77" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label1-fast" fill="#0C4A6E" style="font-family:'Comic Sans MS','Chalkboard SE',cursive,system-ui,sans-serif;letter-spacing:0.5px">DONE</text>
+            <text x="200" y="96" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label2-fast" fill="#0C4A6E" style="font-family:'Comic Sans MS','Chalkboard SE',cursive,system-ui,sans-serif;letter-spacing:0.5px">QUICKLY</text>
           </g>
 
           <!-- Bottom-left corner speech bubble - CHEAP -->
-          <!-- Spike perpendicular base oriented toward corner (20,330); base inside ellipse -->
+          <!-- Spike toward corner (20,330); rect covers the base, only tip protrudes -->
           <g style="cursor:pointer" onclick="toggle('cheap')">
-            <polygon transform="translate(3,3)" points="69,290 79,308 20,330" fill="black"/>
-            <polygon id="bubble-spike-cheap" points="69,290 79,308 20,330" fill="#4ADE80" stroke="black" stroke-width="2.5" stroke-linejoin="round"/>
-            <ellipse transform="translate(3,3)" cx="74" cy="299" rx="65" ry="28" fill="black"/>
-            <ellipse id="bubble-bg-cheap" cx="74" cy="299" rx="65" ry="28" fill="#4ADE80" stroke="black" stroke-width="2.5"/>
-            <text x="74" y="292" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label1-cheap" fill="#14532D" style="font-family:system-ui,sans-serif;letter-spacing:0.5px">LOW</text>
-            <text x="74" y="307" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label2-cheap" fill="#14532D" style="font-family:system-ui,sans-serif;letter-spacing:0.5px">COST</text>
+            <polygon transform="translate(4,4)" points="55,285 65,308 20,330" fill="black"/>
+            <polygon id="bubble-spike-cheap" points="55,285 65,308 20,330" fill="#4ADE80" stroke="black" stroke-width="2.5" stroke-linejoin="round"/>
+            <rect transform="translate(4,4)" x="9" y="271" width="130" height="56" fill="black"/>
+            <rect id="bubble-bg-cheap" x="9" y="271" width="130" height="56" fill="#4ADE80" stroke="black" stroke-width="2.5"/>
+            <text x="74" y="294" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label1-cheap" fill="#14532D" style="font-family:'Comic Sans MS','Chalkboard SE',cursive,system-ui,sans-serif;letter-spacing:0.5px">LOW</text>
+            <text x="74" y="313" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label2-cheap" fill="#14532D" style="font-family:'Comic Sans MS','Chalkboard SE',cursive,system-ui,sans-serif;letter-spacing:0.5px">COST</text>
           </g>
 
           <!-- Bottom-right corner speech bubble - GOOD -->
-          <!-- Spike perpendicular base oriented toward corner (380,330); base inside ellipse -->
+          <!-- Spike toward corner (380,330); rect covers the base, only tip protrudes -->
           <g style="cursor:pointer" onclick="toggle('good')">
-            <polygon transform="translate(3,3)" points="321,308 331,290 380,330" fill="black"/>
-            <polygon id="bubble-spike-good" points="321,308 331,290 380,330" fill="#CBD5E1" stroke="black" stroke-width="2.5" stroke-linejoin="round"/>
-            <ellipse transform="translate(3,3)" cx="326" cy="299" rx="65" ry="28" fill="black"/>
-            <ellipse id="bubble-bg-good" cx="326" cy="299" rx="65" ry="28" fill="#CBD5E1" stroke="black" stroke-width="2.5"/>
-            <text x="326" y="292" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label1-good" fill="#475569" style="font-family:system-ui,sans-serif;letter-spacing:0.5px">HIGH</text>
-            <text x="326" y="307" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label2-good" fill="#475569" style="font-family:system-ui,sans-serif;letter-spacing:0.5px">QUALITY</text>
+            <polygon transform="translate(4,4)" points="335,308 345,285 380,330" fill="black"/>
+            <polygon id="bubble-spike-good" points="335,308 345,285 380,330" fill="#CBD5E1" stroke="black" stroke-width="2.5" stroke-linejoin="round"/>
+            <rect transform="translate(4,4)" x="261" y="271" width="130" height="56" fill="black"/>
+            <rect id="bubble-bg-good" x="261" y="271" width="130" height="56" fill="#CBD5E1" stroke="black" stroke-width="2.5"/>
+            <text x="326" y="294" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label1-good" fill="#475569" style="font-family:'Comic Sans MS','Chalkboard SE',cursive,system-ui,sans-serif;letter-spacing:0.5px">HIGH</text>
+            <text x="326" y="313" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label2-good" fill="#475569" style="font-family:'Comic Sans MS','Chalkboard SE',cursive,system-ui,sans-serif;letter-spacing:0.5px">QUALITY</text>
           </g>
 
         </svg>
