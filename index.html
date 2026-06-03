@@ -141,10 +141,6 @@
     /* Speech bubble */
     .speech-bubble-wrapper {
       position: relative;
-      display: flex;
-      justify-content: center;
-      filter: drop-shadow(7px 7px 0 #000);
-      padding-top: 28px;
     }
 
     .speech-bubble {
@@ -157,34 +153,9 @@
       min-width: 280px;
       max-width: 24rem;
       border: 4px solid #000;
-      box-shadow: none;
+      box-shadow: 7px 7px 0 0 #000;
       transition: background 0.3s;
       font-family: 'Comic Sans MS', 'Chalkboard SE', cursive, system-ui, sans-serif;
-      overflow: visible;
-    }
-
-    .speech-bubble::before,
-    .speech-bubble::after {
-      content: '';
-      position: absolute;
-      background: inherit;
-      border-radius: 50%;
-      border: 4px solid #000;
-      clip-path: inset(0 -20% 50% -20%);
-    }
-
-    .speech-bubble::before {
-      width: 90px;
-      height: 56px;
-      top: -28px;
-      left: 14%;
-    }
-
-    .speech-bubble::after {
-      width: 70px;
-      height: 46px;
-      top: -23px;
-      right: 16%;
     }
 
     .speech-bubble .emoji-badge {
@@ -199,7 +170,7 @@
       font-size: 0.875rem;
       font-weight: 900;
       transform: rotate(12deg);
-      box-shadow: none;
+      box-shadow: 3px 3px 0 0 #000;
       font-family: 'Comic Sans MS', 'Chalkboard SE', cursive, system-ui, sans-serif;
     }
 
@@ -220,18 +191,40 @@
     }
 
     .speech-tail {
-      display: none;
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 16px solid transparent;
+      border-right: 16px solid transparent;
+      border-top: 20px solid;
+      transition: border-top-color 0.3s;
     }
 
     .speech-tail-shadow {
-      display: none;
+      position: absolute;
+      bottom: -27px;
+      left: calc(50% + 7px);
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 18px solid transparent;
+      border-right: 18px solid transparent;
+      border-top: 22px solid #000;
+      z-index: -1;
     }
 
     /* Tradeoff color states */
     .tradeoff-cheapfast { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+    .tradeoff-cheapfast .speech-tail { border-top-color: #8b5cf6; }
     .tradeoff-fastgood { background: linear-gradient(135deg, #ec4899, #f43f5e); }
+    .tradeoff-fastgood .speech-tail { border-top-color: #ec4899; }
     .tradeoff-cheapgood { background: linear-gradient(135deg, #f59e0b, #f97316); }
+    .tradeoff-cheapgood .speech-tail { border-top-color: #f59e0b; }
     .tradeoff-default { background: linear-gradient(135deg, #94a3b8, #64748b); }
+    .tradeoff-default .speech-tail { border-top-color: #94a3b8; }
 
     /* SVG triangle */
     .triangle-container {
@@ -498,6 +491,8 @@
           <div id="emoji-badge" class="emoji-badge">POW!</div>
           <h3 id="tradeoff-title">CHEAP &amp; QUICK = LOW QUALITY!</h3>
           <p id="tradeoff-desc">You'll get it fast and cheap, but don't expect perfection! Bugs, shortcuts, and technical debt await...</p>
+          <div class="speech-tail"></div>
+          <div class="speech-tail-shadow"></div>
         </div>
       </div>
 
@@ -535,28 +530,52 @@
           <polygon id="section-cheapgood-dots" points="20,330 380,330 200,227" fill="url(#dots-orange)" style="display:none"/>
 
           <!-- Top corner speech bubble - FAST -->
-          <!-- Cloud shape centered at (200, 74) -->
+          <!-- Cloud shape centered at (200, 74) with thinking trail toward corner (200,20) -->
           <g style="cursor:pointer" onclick="toggle('fast')">
-            <path transform="translate(4,4)" d="M 142,98 A 22,22 0 0,1 145,68 A 18,18 0 0,1 172,54 A 17,17 0 0,1 200,50 A 17,17 0 0,1 228,54 A 18,18 0 0,1 255,68 A 22,22 0 0,1 258,98 A 58,12 0 0,1 142,98 Z" fill="black"/>
-            <path id="bubble-bg-fast" d="M 142,98 A 22,22 0 0,1 145,68 A 18,18 0 0,1 172,54 A 17,17 0 0,1 200,50 A 17,17 0 0,1 228,54 A 18,18 0 0,1 255,68 A 22,22 0 0,1 258,98 A 58,12 0 0,1 142,98 Z" fill="#38BDF8" stroke="black" stroke-width="2.5" stroke-linejoin="round"/>
+            <!-- Thinking trail circles toward corner -->
+            <circle transform="translate(4,4)" cx="200" cy="44" r="5.5" fill="black"/>
+            <circle id="trail-fast-1" cx="200" cy="44" r="5.5" fill="#38BDF8" stroke="black" stroke-width="2"/>
+            <circle transform="translate(4,4)" cx="200" cy="35" r="3.5" fill="black"/>
+            <circle id="trail-fast-2" cx="200" cy="35" r="3.5" fill="#38BDF8" stroke="black" stroke-width="1.5"/>
+            <circle transform="translate(4,4)" cx="200" cy="27" r="2.5" fill="black"/>
+            <circle id="trail-fast-3" cx="200" cy="27" r="2.5" fill="#38BDF8" stroke="black" stroke-width="1.5"/>
+            <!-- Cloud body (bumps all around) -->
+            <path transform="translate(4,4)" d="M 142,98 A 22,22 0 0,1 145,68 A 18,18 0 0,1 172,54 A 17,17 0 0,1 200,50 A 17,17 0 0,1 228,54 A 18,18 0 0,1 255,68 A 22,22 0 0,1 258,98 A 20,20 0 0,0 230,107 A 18,18 0 0,0 200,111 A 18,18 0 0,0 170,107 A 20,20 0 0,0 142,98 Z" fill="black"/>
+            <path id="bubble-bg-fast" d="M 142,98 A 22,22 0 0,1 145,68 A 18,18 0 0,1 172,54 A 17,17 0 0,1 200,50 A 17,17 0 0,1 228,54 A 18,18 0 0,1 255,68 A 22,22 0 0,1 258,98 A 20,20 0 0,0 230,107 A 18,18 0 0,0 200,111 A 18,18 0 0,0 170,107 A 20,20 0 0,0 142,98 Z" fill="#38BDF8" stroke="black" stroke-width="2.5" stroke-linejoin="round"/>
             <text x="200" y="74" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label1-fast" fill="#0C4A6E" style="font-family:'Comic Sans MS','Chalkboard SE',cursive,system-ui,sans-serif;letter-spacing:0.5px">DONE</text>
             <text x="200" y="91" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label2-fast" fill="#0C4A6E" style="font-family:'Comic Sans MS','Chalkboard SE',cursive,system-ui,sans-serif;letter-spacing:0.5px">QUICKLY</text>
           </g>
 
           <!-- Bottom-left corner speech bubble - CHEAP -->
-          <!-- Cloud shape centered at (110, 292), moved toward triangle center -->
+          <!-- Cloud shape centered at (110, 292) with thinking trail toward corner (20,330) -->
           <g style="cursor:pointer" onclick="toggle('cheap')">
-            <path transform="translate(4,4)" d="M 52,316 A 22,22 0 0,1 55,286 A 18,18 0 0,1 82,272 A 17,17 0 0,1 110,268 A 17,17 0 0,1 138,272 A 18,18 0 0,1 165,286 A 22,22 0 0,1 168,316 A 58,12 0 0,1 52,316 Z" fill="black"/>
-            <path id="bubble-bg-cheap" d="M 52,316 A 22,22 0 0,1 55,286 A 18,18 0 0,1 82,272 A 17,17 0 0,1 110,268 A 17,17 0 0,1 138,272 A 18,18 0 0,1 165,286 A 22,22 0 0,1 168,316 A 58,12 0 0,1 52,316 Z" fill="#4ADE80" stroke="black" stroke-width="2.5" stroke-linejoin="round"/>
+            <!-- Thinking trail circles toward corner (20,330) -->
+            <circle transform="translate(4,4)" cx="40" cy="321" r="5.5" fill="black"/>
+            <circle id="trail-cheap-1" cx="40" cy="321" r="5.5" fill="#4ADE80" stroke="black" stroke-width="2"/>
+            <circle transform="translate(4,4)" cx="30" cy="325" r="3.5" fill="black"/>
+            <circle id="trail-cheap-2" cx="30" cy="325" r="3.5" fill="#4ADE80" stroke="black" stroke-width="1.5"/>
+            <circle transform="translate(4,4)" cx="22" cy="329" r="2.5" fill="black"/>
+            <circle id="trail-cheap-3" cx="22" cy="329" r="2.5" fill="#4ADE80" stroke="black" stroke-width="1.5"/>
+            <!-- Cloud body (bumps all around) -->
+            <path transform="translate(4,4)" d="M 52,316 A 22,22 0 0,1 55,286 A 18,18 0 0,1 82,272 A 17,17 0 0,1 110,268 A 17,17 0 0,1 138,272 A 18,18 0 0,1 165,286 A 22,22 0 0,1 168,316 A 20,20 0 0,0 140,326 A 18,18 0 0,0 110,328 A 18,18 0 0,0 80,326 A 20,20 0 0,0 52,316 Z" fill="black"/>
+            <path id="bubble-bg-cheap" d="M 52,316 A 22,22 0 0,1 55,286 A 18,18 0 0,1 82,272 A 17,17 0 0,1 110,268 A 17,17 0 0,1 138,272 A 18,18 0 0,1 165,286 A 22,22 0 0,1 168,316 A 20,20 0 0,0 140,326 A 18,18 0 0,0 110,328 A 18,18 0 0,0 80,326 A 20,20 0 0,0 52,316 Z" fill="#4ADE80" stroke="black" stroke-width="2.5" stroke-linejoin="round"/>
             <text x="110" y="292" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label1-cheap" fill="#14532D" style="font-family:'Comic Sans MS','Chalkboard SE',cursive,system-ui,sans-serif;letter-spacing:0.5px">LOW</text>
             <text x="110" y="309" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label2-cheap" fill="#14532D" style="font-family:'Comic Sans MS','Chalkboard SE',cursive,system-ui,sans-serif;letter-spacing:0.5px">COST</text>
           </g>
 
           <!-- Bottom-right corner speech bubble - GOOD -->
-          <!-- Cloud shape centered at (290, 292), moved toward triangle center -->
+          <!-- Cloud shape centered at (290, 292) with thinking trail toward corner (380,330) -->
           <g style="cursor:pointer" onclick="toggle('good')">
-            <path transform="translate(4,4)" d="M 232,316 A 22,22 0 0,1 235,286 A 18,18 0 0,1 262,272 A 17,17 0 0,1 290,268 A 17,17 0 0,1 318,272 A 18,18 0 0,1 345,286 A 22,22 0 0,1 348,316 A 58,12 0 0,1 232,316 Z" fill="black"/>
-            <path id="bubble-bg-good" d="M 232,316 A 22,22 0 0,1 235,286 A 18,18 0 0,1 262,272 A 17,17 0 0,1 290,268 A 17,17 0 0,1 318,272 A 18,18 0 0,1 345,286 A 22,22 0 0,1 348,316 A 58,12 0 0,1 232,316 Z" fill="#CBD5E1" stroke="black" stroke-width="2.5" stroke-linejoin="round"/>
+            <!-- Thinking trail circles toward corner (380,330) -->
+            <circle transform="translate(4,4)" cx="360" cy="321" r="5.5" fill="black"/>
+            <circle id="trail-good-1" cx="360" cy="321" r="5.5" fill="#CBD5E1" stroke="black" stroke-width="2"/>
+            <circle transform="translate(4,4)" cx="370" cy="325" r="3.5" fill="black"/>
+            <circle id="trail-good-2" cx="370" cy="325" r="3.5" fill="#CBD5E1" stroke="black" stroke-width="1.5"/>
+            <circle transform="translate(4,4)" cx="378" cy="329" r="2.5" fill="black"/>
+            <circle id="trail-good-3" cx="378" cy="329" r="2.5" fill="#CBD5E1" stroke="black" stroke-width="1.5"/>
+            <!-- Cloud body (bumps all around) -->
+            <path transform="translate(4,4)" d="M 232,316 A 22,22 0 0,1 235,286 A 18,18 0 0,1 262,272 A 17,17 0 0,1 290,268 A 17,17 0 0,1 318,272 A 18,18 0 0,1 345,286 A 22,22 0 0,1 348,316 A 20,20 0 0,0 320,326 A 18,18 0 0,0 290,328 A 18,18 0 0,0 260,326 A 20,20 0 0,0 232,316 Z" fill="black"/>
+            <path id="bubble-bg-good" d="M 232,316 A 22,22 0 0,1 235,286 A 18,18 0 0,1 262,272 A 17,17 0 0,1 290,268 A 17,17 0 0,1 318,272 A 18,18 0 0,1 345,286 A 22,22 0 0,1 348,316 A 20,20 0 0,0 320,326 A 18,18 0 0,0 290,328 A 18,18 0 0,0 260,326 A 20,20 0 0,0 232,316 Z" fill="#CBD5E1" stroke="black" stroke-width="2.5" stroke-linejoin="round"/>
             <text x="290" y="292" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label1-good" fill="#475569" style="font-family:'Comic Sans MS','Chalkboard SE',cursive,system-ui,sans-serif;letter-spacing:0.5px">HIGH</text>
             <text x="290" y="309" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label2-good" fill="#475569" style="font-family:'Comic Sans MS','Chalkboard SE',cursive,system-ui,sans-serif;letter-spacing:0.5px">QUALITY</text>
           </g>
@@ -717,6 +736,9 @@
         document.getElementById("bubble-bg-" + c).setAttribute("fill", on ? col.active : col.inactive);
         document.getElementById("bubble-label1-" + c).setAttribute("fill", on ? col.activeText : col.inactiveText);
         document.getElementById("bubble-label2-" + c).setAttribute("fill", on ? col.activeText : col.inactiveText);
+        for (var i = 1; i <= 3; i++) {
+          document.getElementById("trail-" + c + "-" + i).setAttribute("fill", on ? col.active : col.inactive);
+        }
       });
 
       // Buttons
