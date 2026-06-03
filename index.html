@@ -729,14 +729,14 @@
       document.getElementById("emoji-badge").textContent = t.emoji;
 
       // Triangle sections
-      var count = Number(state.fast) + Number(state.cheap) + Number(state.good);
-      var showAll = count <= 1;
-      document.getElementById("section-cheapfast").setAttribute("fill", (showAll || (state.fast && state.cheap)) ? "#C4B5FD" : "#F1F5F9");
-      document.getElementById("section-cheapfast-dots").style.display = (showAll || (state.fast && state.cheap)) ? "" : "none";
-      document.getElementById("section-fastgood").setAttribute("fill", (showAll || (state.fast && state.good)) ? "#FBCFE8" : "#F1F5F9");
-      document.getElementById("section-fastgood-dots").style.display = (showAll || (state.fast && state.good)) ? "" : "none";
-      document.getElementById("section-cheapgood").setAttribute("fill", (showAll || (state.cheap && state.good)) ? "#FDE68A" : "#F1F5F9");
-      document.getElementById("section-cheapgood-dots").style.display = (showAll || (state.cheap && state.good)) ? "" : "none";
+      // Each inner triangle is greyed out when its opposing (non-adjacent) criteria is selected:
+      // cheapfast <-> opposed by good, fastgood <-> opposed by cheap, cheapgood <-> opposed by fast
+      document.getElementById("section-cheapfast").setAttribute("fill", !state.good ? "#C4B5FD" : "#F1F5F9");
+      document.getElementById("section-cheapfast-dots").style.display = !state.good ? "" : "none";
+      document.getElementById("section-fastgood").setAttribute("fill", !state.cheap ? "#FBCFE8" : "#F1F5F9");
+      document.getElementById("section-fastgood-dots").style.display = !state.cheap ? "" : "none";
+      document.getElementById("section-cheapgood").setAttribute("fill", !state.fast ? "#FDE68A" : "#F1F5F9");
+      document.getElementById("section-cheapgood-dots").style.display = !state.fast ? "" : "none";
 
       // Corner speech bubbles
       var bubbleColors = {
