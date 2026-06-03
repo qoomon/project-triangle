@@ -141,6 +141,10 @@
     /* Speech bubble */
     .speech-bubble-wrapper {
       position: relative;
+      display: flex;
+      justify-content: center;
+      filter: drop-shadow(7px 7px 0 #000);
+      padding-top: 28px;
     }
 
     .speech-bubble {
@@ -153,9 +157,34 @@
       min-width: 280px;
       max-width: 24rem;
       border: 4px solid #000;
-      box-shadow: 7px 7px 0 0 #000;
+      box-shadow: none;
       transition: background 0.3s;
       font-family: 'Comic Sans MS', 'Chalkboard SE', cursive, system-ui, sans-serif;
+      overflow: visible;
+    }
+
+    .speech-bubble::before,
+    .speech-bubble::after {
+      content: '';
+      position: absolute;
+      background: inherit;
+      border-radius: 50%;
+      border: 4px solid #000;
+      clip-path: inset(0 -20% 50% -20%);
+    }
+
+    .speech-bubble::before {
+      width: 90px;
+      height: 56px;
+      top: -28px;
+      left: 14%;
+    }
+
+    .speech-bubble::after {
+      width: 70px;
+      height: 46px;
+      top: -23px;
+      right: 16%;
     }
 
     .speech-bubble .emoji-badge {
@@ -170,7 +199,7 @@
       font-size: 0.875rem;
       font-weight: 900;
       transform: rotate(12deg);
-      box-shadow: 3px 3px 0 0 #000;
+      box-shadow: none;
       font-family: 'Comic Sans MS', 'Chalkboard SE', cursive, system-ui, sans-serif;
     }
 
@@ -191,40 +220,18 @@
     }
 
     .speech-tail {
-      position: absolute;
-      bottom: -20px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 0;
-      height: 0;
-      border-left: 16px solid transparent;
-      border-right: 16px solid transparent;
-      border-top: 20px solid;
-      transition: border-top-color 0.3s;
+      display: none;
     }
 
     .speech-tail-shadow {
-      position: absolute;
-      bottom: -27px;
-      left: calc(50% + 7px);
-      transform: translateX(-50%);
-      width: 0;
-      height: 0;
-      border-left: 18px solid transparent;
-      border-right: 18px solid transparent;
-      border-top: 22px solid #000;
-      z-index: -1;
+      display: none;
     }
 
     /* Tradeoff color states */
     .tradeoff-cheapfast { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
-    .tradeoff-cheapfast .speech-tail { border-top-color: #8b5cf6; }
     .tradeoff-fastgood { background: linear-gradient(135deg, #ec4899, #f43f5e); }
-    .tradeoff-fastgood .speech-tail { border-top-color: #ec4899; }
     .tradeoff-cheapgood { background: linear-gradient(135deg, #f59e0b, #f97316); }
-    .tradeoff-cheapgood .speech-tail { border-top-color: #f59e0b; }
     .tradeoff-default { background: linear-gradient(135deg, #94a3b8, #64748b); }
-    .tradeoff-default .speech-tail { border-top-color: #94a3b8; }
 
     /* SVG triangle */
     .triangle-container {
@@ -491,8 +498,6 @@
           <div id="emoji-badge" class="emoji-badge">POW!</div>
           <h3 id="tradeoff-title">CHEAP &amp; QUICK = LOW QUALITY!</h3>
           <p id="tradeoff-desc">You'll get it fast and cheap, but don't expect perfection! Bugs, shortcuts, and technical debt await...</p>
-          <div class="speech-tail"></div>
-          <div class="speech-tail-shadow"></div>
         </div>
       </div>
 
@@ -530,36 +535,30 @@
           <polygon id="section-cheapgood-dots" points="20,330 380,330 200,227" fill="url(#dots-orange)" style="display:none"/>
 
           <!-- Top corner speech bubble - FAST -->
-          <!-- Spike base at rect centre; rect drawn on top covers the base, only the tip protrudes -->
+          <!-- Cloud shape centered at (200, 74) -->
           <g style="cursor:pointer" onclick="toggle('fast')">
-            <polygon transform="translate(4,4)" points="190,82 210,82 200,20" fill="black"/>
-            <polygon id="bubble-spike-fast" points="190,82 210,82 200,20" fill="#38BDF8" stroke="black" stroke-width="2.5" stroke-linejoin="round"/>
-            <rect transform="translate(4,4)" x="135" y="54" width="130" height="56" rx="10" fill="black"/>
-            <rect id="bubble-bg-fast" x="135" y="54" width="130" height="56" rx="10" fill="#38BDF8" stroke="black" stroke-width="2.5"/>
-            <text x="200" y="77" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label1-fast" fill="#0C4A6E" style="font-family:'Comic Sans MS','Chalkboard SE',cursive,system-ui,sans-serif;letter-spacing:0.5px">DONE</text>
-            <text x="200" y="96" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label2-fast" fill="#0C4A6E" style="font-family:'Comic Sans MS','Chalkboard SE',cursive,system-ui,sans-serif;letter-spacing:0.5px">QUICKLY</text>
+            <path transform="translate(4,4)" d="M 142,98 A 22,22 0 0,1 145,68 A 18,18 0 0,1 172,54 A 17,17 0 0,1 200,50 A 17,17 0 0,1 228,54 A 18,18 0 0,1 255,68 A 22,22 0 0,1 258,98 A 58,12 0 0,1 142,98 Z" fill="black"/>
+            <path id="bubble-bg-fast" d="M 142,98 A 22,22 0 0,1 145,68 A 18,18 0 0,1 172,54 A 17,17 0 0,1 200,50 A 17,17 0 0,1 228,54 A 18,18 0 0,1 255,68 A 22,22 0 0,1 258,98 A 58,12 0 0,1 142,98 Z" fill="#38BDF8" stroke="black" stroke-width="2.5" stroke-linejoin="round"/>
+            <text x="200" y="74" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label1-fast" fill="#0C4A6E" style="font-family:'Comic Sans MS','Chalkboard SE',cursive,system-ui,sans-serif;letter-spacing:0.5px">DONE</text>
+            <text x="200" y="91" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label2-fast" fill="#0C4A6E" style="font-family:'Comic Sans MS','Chalkboard SE',cursive,system-ui,sans-serif;letter-spacing:0.5px">QUICKLY</text>
           </g>
 
           <!-- Bottom-left corner speech bubble - CHEAP -->
-          <!-- Spike toward corner (20,330); rect covers the base, only tip protrudes -->
+          <!-- Cloud shape centered at (110, 292), moved toward triangle center -->
           <g style="cursor:pointer" onclick="toggle('cheap')">
-            <polygon transform="translate(4,4)" points="55,285 65,308 20,330" fill="black"/>
-            <polygon id="bubble-spike-cheap" points="55,285 65,308 20,330" fill="#4ADE80" stroke="black" stroke-width="2.5" stroke-linejoin="round"/>
-            <rect transform="translate(4,4)" x="9" y="271" width="130" height="56" rx="10" fill="black"/>
-            <rect id="bubble-bg-cheap" x="9" y="271" width="130" height="56" rx="10" fill="#4ADE80" stroke="black" stroke-width="2.5"/>
-            <text x="74" y="294" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label1-cheap" fill="#14532D" style="font-family:'Comic Sans MS','Chalkboard SE',cursive,system-ui,sans-serif;letter-spacing:0.5px">LOW</text>
-            <text x="74" y="313" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label2-cheap" fill="#14532D" style="font-family:'Comic Sans MS','Chalkboard SE',cursive,system-ui,sans-serif;letter-spacing:0.5px">COST</text>
+            <path transform="translate(4,4)" d="M 52,316 A 22,22 0 0,1 55,286 A 18,18 0 0,1 82,272 A 17,17 0 0,1 110,268 A 17,17 0 0,1 138,272 A 18,18 0 0,1 165,286 A 22,22 0 0,1 168,316 A 58,12 0 0,1 52,316 Z" fill="black"/>
+            <path id="bubble-bg-cheap" d="M 52,316 A 22,22 0 0,1 55,286 A 18,18 0 0,1 82,272 A 17,17 0 0,1 110,268 A 17,17 0 0,1 138,272 A 18,18 0 0,1 165,286 A 22,22 0 0,1 168,316 A 58,12 0 0,1 52,316 Z" fill="#4ADE80" stroke="black" stroke-width="2.5" stroke-linejoin="round"/>
+            <text x="110" y="292" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label1-cheap" fill="#14532D" style="font-family:'Comic Sans MS','Chalkboard SE',cursive,system-ui,sans-serif;letter-spacing:0.5px">LOW</text>
+            <text x="110" y="309" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label2-cheap" fill="#14532D" style="font-family:'Comic Sans MS','Chalkboard SE',cursive,system-ui,sans-serif;letter-spacing:0.5px">COST</text>
           </g>
 
           <!-- Bottom-right corner speech bubble - GOOD -->
-          <!-- Spike toward corner (380,330); rect covers the base, only tip protrudes -->
+          <!-- Cloud shape centered at (290, 292), moved toward triangle center -->
           <g style="cursor:pointer" onclick="toggle('good')">
-            <polygon transform="translate(4,4)" points="335,308 345,285 380,330" fill="black"/>
-            <polygon id="bubble-spike-good" points="335,308 345,285 380,330" fill="#CBD5E1" stroke="black" stroke-width="2.5" stroke-linejoin="round"/>
-            <rect transform="translate(4,4)" x="261" y="271" width="130" height="56" rx="10" fill="black"/>
-            <rect id="bubble-bg-good" x="261" y="271" width="130" height="56" rx="10" fill="#CBD5E1" stroke="black" stroke-width="2.5"/>
-            <text x="326" y="294" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label1-good" fill="#475569" style="font-family:'Comic Sans MS','Chalkboard SE',cursive,system-ui,sans-serif;letter-spacing:0.5px">HIGH</text>
-            <text x="326" y="313" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label2-good" fill="#475569" style="font-family:'Comic Sans MS','Chalkboard SE',cursive,system-ui,sans-serif;letter-spacing:0.5px">QUALITY</text>
+            <path transform="translate(4,4)" d="M 232,316 A 22,22 0 0,1 235,286 A 18,18 0 0,1 262,272 A 17,17 0 0,1 290,268 A 17,17 0 0,1 318,272 A 18,18 0 0,1 345,286 A 22,22 0 0,1 348,316 A 58,12 0 0,1 232,316 Z" fill="black"/>
+            <path id="bubble-bg-good" d="M 232,316 A 22,22 0 0,1 235,286 A 18,18 0 0,1 262,272 A 17,17 0 0,1 290,268 A 17,17 0 0,1 318,272 A 18,18 0 0,1 345,286 A 22,22 0 0,1 348,316 A 58,12 0 0,1 232,316 Z" fill="#CBD5E1" stroke="black" stroke-width="2.5" stroke-linejoin="round"/>
+            <text x="290" y="292" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label1-good" fill="#475569" style="font-family:'Comic Sans MS','Chalkboard SE',cursive,system-ui,sans-serif;letter-spacing:0.5px">HIGH</text>
+            <text x="290" y="309" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label2-good" fill="#475569" style="font-family:'Comic Sans MS','Chalkboard SE',cursive,system-ui,sans-serif;letter-spacing:0.5px">QUALITY</text>
           </g>
 
         </svg>
@@ -716,7 +715,6 @@
         var on = state[c];
         var col = bubbleColors[c];
         document.getElementById("bubble-bg-" + c).setAttribute("fill", on ? col.active : col.inactive);
-        document.getElementById("bubble-spike-" + c).setAttribute("fill", on ? col.active : col.inactive);
         document.getElementById("bubble-label1-" + c).setAttribute("fill", on ? col.activeText : col.inactiveText);
         document.getElementById("bubble-label2-" + c).setAttribute("fill", on ? col.activeText : col.inactiveText);
       });
