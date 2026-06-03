@@ -146,7 +146,7 @@
     .speech-bubble {
       position: relative;
       padding: 1rem 1.5rem;
-      border-radius: 0;
+      border-radius: 1rem;
       color: #fff;
       font-weight: 700;
       text-align: center;
@@ -165,7 +165,7 @@
       background: #fde047;
       color: #000;
       padding: 0.25rem 0.75rem;
-      border-radius: 0;
+      border-radius: 0.5rem;
       border: 3px solid #000;
       font-size: 0.875rem;
       font-weight: 900;
@@ -534,8 +534,8 @@
           <g style="cursor:pointer" onclick="toggle('fast')">
             <polygon transform="translate(4,4)" points="190,82 210,82 200,20" fill="black"/>
             <polygon id="bubble-spike-fast" points="190,82 210,82 200,20" fill="#38BDF8" stroke="black" stroke-width="2.5" stroke-linejoin="round"/>
-            <rect transform="translate(4,4)" x="135" y="54" width="130" height="56" fill="black"/>
-            <rect id="bubble-bg-fast" x="135" y="54" width="130" height="56" fill="#38BDF8" stroke="black" stroke-width="2.5"/>
+            <rect transform="translate(4,4)" x="135" y="54" width="130" height="56" rx="10" fill="black"/>
+            <rect id="bubble-bg-fast" x="135" y="54" width="130" height="56" rx="10" fill="#38BDF8" stroke="black" stroke-width="2.5"/>
             <text x="200" y="77" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label1-fast" fill="#0C4A6E" style="font-family:'Comic Sans MS','Chalkboard SE',cursive,system-ui,sans-serif;letter-spacing:0.5px">DONE</text>
             <text x="200" y="96" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label2-fast" fill="#0C4A6E" style="font-family:'Comic Sans MS','Chalkboard SE',cursive,system-ui,sans-serif;letter-spacing:0.5px">QUICKLY</text>
           </g>
@@ -545,8 +545,8 @@
           <g style="cursor:pointer" onclick="toggle('cheap')">
             <polygon transform="translate(4,4)" points="55,285 65,308 20,330" fill="black"/>
             <polygon id="bubble-spike-cheap" points="55,285 65,308 20,330" fill="#4ADE80" stroke="black" stroke-width="2.5" stroke-linejoin="round"/>
-            <rect transform="translate(4,4)" x="9" y="271" width="130" height="56" fill="black"/>
-            <rect id="bubble-bg-cheap" x="9" y="271" width="130" height="56" fill="#4ADE80" stroke="black" stroke-width="2.5"/>
+            <rect transform="translate(4,4)" x="9" y="271" width="130" height="56" rx="10" fill="black"/>
+            <rect id="bubble-bg-cheap" x="9" y="271" width="130" height="56" rx="10" fill="#4ADE80" stroke="black" stroke-width="2.5"/>
             <text x="74" y="294" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label1-cheap" fill="#14532D" style="font-family:'Comic Sans MS','Chalkboard SE',cursive,system-ui,sans-serif;letter-spacing:0.5px">LOW</text>
             <text x="74" y="313" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label2-cheap" fill="#14532D" style="font-family:'Comic Sans MS','Chalkboard SE',cursive,system-ui,sans-serif;letter-spacing:0.5px">COST</text>
           </g>
@@ -556,8 +556,8 @@
           <g style="cursor:pointer" onclick="toggle('good')">
             <polygon transform="translate(4,4)" points="335,308 345,285 380,330" fill="black"/>
             <polygon id="bubble-spike-good" points="335,308 345,285 380,330" fill="#CBD5E1" stroke="black" stroke-width="2.5" stroke-linejoin="round"/>
-            <rect transform="translate(4,4)" x="261" y="271" width="130" height="56" fill="black"/>
-            <rect id="bubble-bg-good" x="261" y="271" width="130" height="56" fill="#CBD5E1" stroke="black" stroke-width="2.5"/>
+            <rect transform="translate(4,4)" x="261" y="271" width="130" height="56" rx="10" fill="black"/>
+            <rect id="bubble-bg-good" x="261" y="271" width="130" height="56" rx="10" fill="#CBD5E1" stroke="black" stroke-width="2.5"/>
             <text x="326" y="294" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label1-good" fill="#475569" style="font-family:'Comic Sans MS','Chalkboard SE',cursive,system-ui,sans-serif;letter-spacing:0.5px">HIGH</text>
             <text x="326" y="313" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label2-good" fill="#475569" style="font-family:'Comic Sans MS','Chalkboard SE',cursive,system-ui,sans-serif;letter-spacing:0.5px">QUALITY</text>
           </g>
