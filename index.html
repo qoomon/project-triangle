@@ -153,8 +153,13 @@
       min-width: 280px;
       max-width: 24rem;
       border: 4px solid #000;
-      box-shadow: 6px 6px 0 0 #000;
-      transition: background 0.3s;
+      box-shadow: 7px 7px 0 0 #000;
+      transition: background 0.3s, transform 0.2s;
+      font-family: 'Comic Sans MS', 'Chalkboard SE', cursive, system-ui, sans-serif;
+    }
+
+    .speech-bubble:hover {
+      transform: scale(1.04) rotate(-1deg);
     }
 
     .speech-bubble .emoji-badge {
@@ -164,26 +169,29 @@
       background: #fde047;
       color: #000;
       padding: 0.25rem 0.75rem;
-      border-radius: 9999px;
+      border-radius: 0.5rem;
       border: 3px solid #000;
       font-size: 0.875rem;
       font-weight: 900;
       transform: rotate(12deg);
-      box-shadow: 2px 2px 0 0 #000;
+      box-shadow: 3px 3px 0 0 #000;
+      font-family: 'Comic Sans MS', 'Chalkboard SE', cursive, system-ui, sans-serif;
     }
 
     .speech-bubble h3 {
       font-size: clamp(1rem, 3vw, 1.25rem);
       font-weight: 900;
-      letter-spacing: -0.025em;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      text-shadow: 2px 2px 0 rgba(0,0,0,0.3);
     }
 
     .speech-bubble p {
       font-size: 0.875rem;
       margin-top: 0.5rem;
-      font-weight: 500;
+      font-weight: 700;
       opacity: 0.95;
+      letter-spacing: 0.02em;
     }
 
     .speech-tail {
@@ -201,8 +209,8 @@
 
     .speech-tail-shadow {
       position: absolute;
-      bottom: -23px;
-      left: 50%;
+      bottom: -27px;
+      left: calc(50% + 7px);
       transform: translateX(-50%);
       width: 0;
       height: 0;
@@ -226,8 +234,8 @@
     .triangle-container {
       position: relative;
       width: 100%;
-      max-width: 32rem;
-      aspect-ratio: 1.15;
+      max-width: 44rem;
+      aspect-ratio: 1.22;
       margin-top: 1.5rem;
     }
 
@@ -242,6 +250,16 @@
 
     .corner-polygon {
       transition: transform 0.2s;
+    }
+
+    .corner-bubble {
+      transform-box: fill-box;
+      transform-origin: center;
+      transition: transform 0.2s;
+    }
+
+    .corner-bubble:hover {
+      transform: scale(1.1);
     }
 
     .section-fill {
@@ -483,10 +501,10 @@
     <div class="triangle-wrapper">
       <!-- Speech bubble -->
       <div class="speech-bubble-wrapper">
-        <div id="speech-bubble" class="speech-bubble tradeoff-cheapfast">
-          <div id="emoji-badge" class="emoji-badge">POW!</div>
-          <h3 id="tradeoff-title">CHEAP &amp; QUICK = LOW QUALITY!</h3>
-          <p id="tradeoff-desc">You'll get it fast and cheap, but don't expect perfection! Bugs, shortcuts, and technical debt await...</p>
+        <div id="speech-bubble" class="speech-bubble tradeoff-default">
+          <div id="emoji-badge" class="emoji-badge">CHOOSE!</div>
+          <h3 id="tradeoff-title">PICK TWO!</h3>
+          <p id="tradeoff-desc">Click on the corners to choose your constraints and discover the trade-off!</p>
           <div class="speech-tail"></div>
           <div class="speech-tail-shadow"></div>
         </div>
@@ -494,7 +512,7 @@
 
       <!-- SVG Triangle -->
       <div class="triangle-container">
-        <svg viewBox="0 0 400 350">
+        <svg viewBox="-10 5 420 345">
           <defs>
             <pattern id="dots-purple" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse">
               <circle cx="3" cy="3" r="1.2" fill="rgba(139,92,246,0.3)"/>
@@ -514,85 +532,75 @@
 
           <!-- Center sections -->
           <!-- Top-left (Cheap & Quick) -->
-          <polygon id="section-cheapfast" class="section-fill" points="200,100 115,245 200,195" fill="#C4B5FD" stroke="black" stroke-width="3"/>
-          <polygon id="section-cheapfast-dots" points="200,100 115,245 200,195" fill="url(#dots-purple)"/>
+          <polygon id="section-cheapfast" class="section-fill" points="200,20 20,330 200,227" fill="#C4B5FD" stroke="black" stroke-width="3"/>
+          <polygon id="section-cheapfast-dots" points="200,20 20,330 200,227" fill="url(#dots-purple)"/>
 
           <!-- Top-right (Fast & Good) -->
-          <polygon id="section-fastgood" class="section-fill" points="200,100 200,195 285,245" fill="#F1F5F9" stroke="black" stroke-width="3"/>
-          <polygon id="section-fastgood-dots" points="200,100 200,195 285,245" fill="url(#dots-pink)" style="display:none"/>
+          <polygon id="section-fastgood" class="section-fill" points="200,20 380,330 200,227" fill="#FBCFE8" stroke="black" stroke-width="3"/>
+          <polygon id="section-fastgood-dots" points="200,20 380,330 200,227" fill="url(#dots-pink)"/>
 
           <!-- Bottom (Cheap & Good) -->
-          <polygon id="section-cheapgood" class="section-fill" points="115,245 200,195 285,245 200,310" fill="#F1F5F9" stroke="black" stroke-width="3"/>
-          <polygon id="section-cheapgood-dots" points="115,245 200,195 285,245 200,310" fill="url(#dots-orange)" style="display:none"/>
+          <polygon id="section-cheapgood" class="section-fill" points="20,330 380,330 200,227" fill="#FDE68A" stroke="black" stroke-width="3"/>
+          <polygon id="section-cheapgood-dots" points="20,330 380,330 200,227" fill="url(#dots-orange)"/>
 
-          <!-- Top corner - FAST -->
-          <g class="corner-group" data-corner="fast">
-            <polygon id="corner-fast" class="corner-polygon" points="200,15 150,115 250,115" fill="#38BDF8" stroke="black" stroke-width="4" style="transform-origin:200px 70px"/>
-            <g id="lines-fast">
-              <line x1="200" y1="5" x2="200" y2="-5" stroke="black" stroke-width="3"/>
-              <line x1="170" y1="25" x2="160" y2="15" stroke="black" stroke-width="2"/>
-              <line x1="230" y1="25" x2="240" y2="15" stroke="black" stroke-width="2"/>
-            </g>
-            <rect x="155" y="48" width="90" height="45" rx="4" fill="#0EA5E9" stroke="black" stroke-width="2.5"/>
-            <rect id="label-bg-fast" x="158" y="51" width="84" height="39" rx="2" fill="#38BDF8"/>
-            <text x="200" y="68" text-anchor="middle" font-size="13" font-weight="900" id="label1-fast" fill="#0C4A6E" style="font-family:system-ui,sans-serif;letter-spacing:0.5px">DONE</text>
-            <text x="200" y="84" text-anchor="middle" font-size="13" font-weight="900" id="label2-fast" fill="#0C4A6E" style="font-family:system-ui,sans-serif;letter-spacing:0.5px">QUICKLY</text>
+          <!-- Top corner speech bubble - FAST -->
+          <!-- Cloud shape centered at (200, 74) with thinking trail toward corner (200,20) -->
+          <g class="corner-bubble" style="cursor:pointer" onclick="toggle('fast')">
+            <!-- Thinking trail circles toward corner -->
+            <circle transform="translate(4,4)" cx="200" cy="44" r="5.5" fill="black"/>
+            <circle id="trail-fast-1" cx="200" cy="44" r="5.5" fill="#38BDF8" stroke="black" stroke-width="2"/>
+            <circle transform="translate(4,4)" cx="200" cy="35" r="3.5" fill="black"/>
+            <circle id="trail-fast-2" cx="200" cy="35" r="3.5" fill="#38BDF8" stroke="black" stroke-width="1.5"/>
+            <circle transform="translate(4,4)" cx="200" cy="27" r="2.5" fill="black"/>
+            <circle id="trail-fast-3" cx="200" cy="27" r="2.5" fill="#38BDF8" stroke="black" stroke-width="1.5"/>
+            <!-- Cloud body (bumps all around, bottom bumps convex outward) -->
+            <path transform="translate(4,4)" d="M 142,98 A 22,22 0 0,1 145,68 A 18,18 0 0,1 172,54 A 17,17 0 0,1 200,50 A 17,17 0 0,1 228,54 A 18,18 0 0,1 255,68 A 22,22 0 0,1 258,98 A 20,20 0 0,1 230,107 A 18,18 0 0,1 200,111 A 18,18 0 0,1 170,107 A 20,20 0 0,1 142,98 Z" fill="black"/>
+            <path id="bubble-bg-fast" d="M 142,98 A 22,22 0 0,1 145,68 A 18,18 0 0,1 172,54 A 17,17 0 0,1 200,50 A 17,17 0 0,1 228,54 A 18,18 0 0,1 255,68 A 22,22 0 0,1 258,98 A 20,20 0 0,1 230,107 A 18,18 0 0,1 200,111 A 18,18 0 0,1 170,107 A 20,20 0 0,1 142,98 Z" fill="#38BDF8" stroke="black" stroke-width="2.5" stroke-linejoin="round"/>
+            <text x="200" y="74" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label1-fast" fill="#0C4A6E" style="font-family:'Comic Sans MS','Chalkboard SE',cursive,system-ui,sans-serif;letter-spacing:0.5px">DONE</text>
+            <text x="200" y="91" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label2-fast" fill="#0C4A6E" style="font-family:'Comic Sans MS','Chalkboard SE',cursive,system-ui,sans-serif;letter-spacing:0.5px">QUICKLY</text>
           </g>
 
-          <!-- Bottom-left corner - CHEAP -->
-          <g class="corner-group" data-corner="cheap">
-            <polygon id="corner-cheap" class="corner-polygon" points="20,330 105,250 105,330" fill="#4ADE80" stroke="black" stroke-width="4" style="transform-origin:65px 290px"/>
-            <g id="lines-cheap">
-              <line x1="30" y1="340" x2="20" y2="350" stroke="black" stroke-width="2"/>
-              <line x1="10" y1="320" x2="0" y2="320" stroke="black" stroke-width="2"/>
-            </g>
-            <rect x="25" y="275" width="70" height="45" rx="4" fill="#22C55E" stroke="black" stroke-width="2.5"/>
-            <rect id="label-bg-cheap" x="28" y="278" width="64" height="39" rx="2" fill="#4ADE80"/>
-            <text x="60" y="296" text-anchor="middle" font-size="13" font-weight="900" id="label1-cheap" fill="#14532D" style="font-family:system-ui,sans-serif;letter-spacing:0.5px">LOW</text>
-            <text x="60" y="312" text-anchor="middle" font-size="13" font-weight="900" id="label2-cheap" fill="#14532D" style="font-family:system-ui,sans-serif;letter-spacing:0.5px">COST</text>
+          <!-- Bottom-left corner speech bubble - CHEAP -->
+          <!-- Cloud shape centered at (110, 292) with thinking trail toward corner (20,330) -->
+          <g class="corner-bubble" style="cursor:pointer" onclick="toggle('cheap')">
+            <!-- Thinking trail circles toward corner (20,330) -->
+            <circle transform="translate(4,4)" cx="40" cy="321" r="5.5" fill="black"/>
+            <circle id="trail-cheap-1" cx="40" cy="321" r="5.5" fill="#4ADE80" stroke="black" stroke-width="2"/>
+            <circle transform="translate(4,4)" cx="30" cy="325" r="3.5" fill="black"/>
+            <circle id="trail-cheap-2" cx="30" cy="325" r="3.5" fill="#4ADE80" stroke="black" stroke-width="1.5"/>
+            <circle transform="translate(4,4)" cx="22" cy="329" r="2.5" fill="black"/>
+            <circle id="trail-cheap-3" cx="22" cy="329" r="2.5" fill="#4ADE80" stroke="black" stroke-width="1.5"/>
+            <!-- Cloud body (bumps all around, bottom bumps convex outward) -->
+            <path transform="translate(4,4)" d="M 52,316 A 22,22 0 0,1 55,286 A 18,18 0 0,1 82,272 A 17,17 0 0,1 110,268 A 17,17 0 0,1 138,272 A 18,18 0 0,1 165,286 A 22,22 0 0,1 168,316 A 20,20 0 0,1 140,326 A 18,18 0 0,1 110,328 A 18,18 0 0,1 80,326 A 20,20 0 0,1 52,316 Z" fill="black"/>
+            <path id="bubble-bg-cheap" d="M 52,316 A 22,22 0 0,1 55,286 A 18,18 0 0,1 82,272 A 17,17 0 0,1 110,268 A 17,17 0 0,1 138,272 A 18,18 0 0,1 165,286 A 22,22 0 0,1 168,316 A 20,20 0 0,1 140,326 A 18,18 0 0,1 110,328 A 18,18 0 0,1 80,326 A 20,20 0 0,1 52,316 Z" fill="#4ADE80" stroke="black" stroke-width="2.5" stroke-linejoin="round"/>
+            <text x="110" y="292" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label1-cheap" fill="#14532D" style="font-family:'Comic Sans MS','Chalkboard SE',cursive,system-ui,sans-serif;letter-spacing:0.5px">LOW</text>
+            <text x="110" y="309" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label2-cheap" fill="#14532D" style="font-family:'Comic Sans MS','Chalkboard SE',cursive,system-ui,sans-serif;letter-spacing:0.5px">COST</text>
           </g>
 
-          <!-- Bottom-right corner - GOOD -->
-          <g class="corner-group" data-corner="good">
-            <polygon id="corner-good" class="corner-polygon" points="380,330 295,330 295,250" fill="#CBD5E1" stroke="black" stroke-width="4" style="transform-origin:335px 290px"/>
-            <g id="lines-good" style="display:none">
-              <line x1="370" y1="340" x2="380" y2="350" stroke="black" stroke-width="2"/>
-              <line x1="390" y1="320" x2="400" y2="320" stroke="black" stroke-width="2"/>
-            </g>
-            <rect x="305" y="275" width="70" height="45" rx="4" fill="#94A3B8" stroke="black" stroke-width="2.5"/>
-            <rect id="label-bg-good" x="308" y="278" width="64" height="39" rx="2" fill="#CBD5E1"/>
-            <text x="340" y="296" text-anchor="middle" font-size="13" font-weight="900" id="label1-good" fill="#475569" style="font-family:system-ui,sans-serif;letter-spacing:0.5px">HIGH</text>
-            <text x="340" y="312" text-anchor="middle" font-size="13" font-weight="900" id="label2-good" fill="#475569" style="font-family:system-ui,sans-serif;letter-spacing:0.5px">QUALITY</text>
+          <!-- Bottom-right corner speech bubble - GOOD -->
+          <!-- Cloud shape centered at (290, 292) with thinking trail toward corner (380,330) -->
+          <g class="corner-bubble" style="cursor:pointer" onclick="toggle('good')">
+            <!-- Thinking trail circles toward corner (380,330) -->
+            <circle transform="translate(4,4)" cx="360" cy="321" r="5.5" fill="black"/>
+            <circle id="trail-good-1" cx="360" cy="321" r="5.5" fill="#CBD5E1" stroke="black" stroke-width="2"/>
+            <circle transform="translate(4,4)" cx="370" cy="325" r="3.5" fill="black"/>
+            <circle id="trail-good-2" cx="370" cy="325" r="3.5" fill="#CBD5E1" stroke="black" stroke-width="1.5"/>
+            <circle transform="translate(4,4)" cx="378" cy="329" r="2.5" fill="black"/>
+            <circle id="trail-good-3" cx="378" cy="329" r="2.5" fill="#CBD5E1" stroke="black" stroke-width="1.5"/>
+            <!-- Cloud body (bumps all around, bottom bumps convex outward) -->
+            <path transform="translate(4,4)" d="M 232,316 A 22,22 0 0,1 235,286 A 18,18 0 0,1 262,272 A 17,17 0 0,1 290,268 A 17,17 0 0,1 318,272 A 18,18 0 0,1 345,286 A 22,22 0 0,1 348,316 A 20,20 0 0,1 320,326 A 18,18 0 0,1 290,328 A 18,18 0 0,1 260,326 A 20,20 0 0,1 232,316 Z" fill="black"/>
+            <path id="bubble-bg-good" d="M 232,316 A 22,22 0 0,1 235,286 A 18,18 0 0,1 262,272 A 17,17 0 0,1 290,268 A 17,17 0 0,1 318,272 A 18,18 0 0,1 345,286 A 22,22 0 0,1 348,316 A 20,20 0 0,1 320,326 A 18,18 0 0,1 290,328 A 18,18 0 0,1 260,326 A 20,20 0 0,1 232,316 Z" fill="#CBD5E1" stroke="black" stroke-width="2.5" stroke-linejoin="round"/>
+            <text x="290" y="292" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label1-good" fill="#475569" style="font-family:'Comic Sans MS','Chalkboard SE',cursive,system-ui,sans-serif;letter-spacing:0.5px">HIGH</text>
+            <text x="290" y="309" text-anchor="middle" font-size="13" font-weight="900" id="bubble-label2-good" fill="#475569" style="font-family:'Comic Sans MS','Chalkboard SE',cursive,system-ui,sans-serif;letter-spacing:0.5px">QUALITY</text>
           </g>
 
-          <!-- Inner trade-off labels -->
-          <!-- Top-left bubble (Cheap & Quick = Low Quality) -->
-          <g>
-            <path d="M122,148 L182,148 Q188,148 188,154 L188,194 Q188,200 182,200 L162,200 L155,212 L153,200 L122,200 Q116,200 116,194 L116,154 Q116,148 122,148 Z" fill="black" transform="translate(2,2)"/>
-            <path d="M122,148 L182,148 Q188,148 188,154 L188,194 Q188,200 182,200 L162,200 L155,212 L153,200 L122,200 Q116,200 116,194 L116,154 Q116,148 122,148 Z" fill="white" stroke="black" stroke-width="2.5"/>
-            <text x="152" y="193" text-anchor="middle" font-size="9" font-weight="900" fill="#7C3AED" style="font-family:system-ui,sans-serif">LOW QUALITY</text>
-          </g>
-
-          <!-- Top-right bubble (Fast & Good = Expensive) -->
-          <g>
-            <path d="M218,148 L278,148 Q284,148 284,154 L284,194 Q284,200 278,200 L248,200 L245,212 L238,200 L218,200 Q212,200 212,194 L212,154 Q212,148 218,148 Z" fill="black" transform="translate(2,2)"/>
-            <path d="M218,148 L278,148 Q284,148 284,154 L284,194 Q284,200 278,200 L248,200 L245,212 L238,200 L218,200 Q212,200 212,194 L212,154 Q212,148 218,148 Z" fill="white" stroke="black" stroke-width="2.5"/>
-            <text x="248" y="193" text-anchor="middle" font-size="9" font-weight="900" fill="#DB2777" style="font-family:system-ui,sans-serif">EXPENSIVE</text>
-          </g>
-
-          <!-- Bottom bubble (Cheap & Good = Low Priority) -->
-          <g>
-            <path d="M148,248 L252,248 Q258,248 258,254 L258,288 Q258,294 252,294 L208,294 L200,280 L192,294 L148,294 Q142,294 142,288 L142,254 Q142,248 148,248 Z" fill="black" transform="translate(2,2)"/>
-            <path d="M148,248 L252,248 Q258,248 258,254 L258,288 Q258,294 252,294 L208,294 L200,280 L192,294 L148,294 Q142,294 142,288 L142,254 Q142,248 148,248 Z" fill="white" stroke="black" stroke-width="2.5"/>
-            <text x="200" y="287" text-anchor="middle" font-size="9" font-weight="900" fill="#D97706" style="font-family:system-ui,sans-serif">LOW PRIORITY</text>
-          </g>
         </svg>
       </div>
 
       <!-- Toggle buttons -->
       <div class="button-row">
-        <button class="toggle-btn active-fast" data-toggle="fast" type="button">Fast</button>
-        <button class="toggle-btn active-cheap" data-toggle="cheap" type="button">Cheap</button>
+        <button class="toggle-btn inactive" data-toggle="fast" type="button">Fast</button>
+        <button class="toggle-btn inactive" data-toggle="cheap" type="button">Cheap</button>
         <button class="toggle-btn inactive" data-toggle="good" type="button">Good</button>
       </div>
 
@@ -600,8 +608,6 @@
       <div class="selection-display">
         <span class="selection-label">YOU PICKED:</span>
         <div id="selection-badges" class="selection-badges">
-          <span class="selection-badge fast">Fast</span>
-          <span class="selection-badge cheap">Cheap</span>
         </div>
       </div>
     </div>
@@ -662,7 +668,7 @@
   </footer>
 
   <script>
-    var state = { fast: true, cheap: true, good: false };
+    var state = { fast: false, cheap: false, good: false };
 
     var tradeoffs = {
       cheapfast: {
@@ -723,22 +729,31 @@
       document.getElementById("emoji-badge").textContent = t.emoji;
 
       // Triangle sections
-      document.getElementById("section-cheapfast").setAttribute("fill", state.fast && state.cheap ? "#C4B5FD" : "#F1F5F9");
-      document.getElementById("section-cheapfast-dots").style.display = state.fast && state.cheap ? "" : "none";
-      document.getElementById("section-fastgood").setAttribute("fill", state.fast && state.good ? "#FBCFE8" : "#F1F5F9");
-      document.getElementById("section-fastgood-dots").style.display = state.fast && state.good ? "" : "none";
-      document.getElementById("section-cheapgood").setAttribute("fill", state.cheap && state.good ? "#FDE68A" : "#F1F5F9");
-      document.getElementById("section-cheapgood-dots").style.display = state.cheap && state.good ? "" : "none";
+      // Each inner triangle is greyed out when its opposing (non-adjacent) criteria is selected:
+      // cheapfast <-> opposed by good, fastgood <-> opposed by cheap, cheapgood <-> opposed by fast
+      document.getElementById("section-cheapfast").setAttribute("fill", !state.good ? "#C4B5FD" : "#F1F5F9");
+      document.getElementById("section-cheapfast-dots").style.display = !state.good ? "" : "none";
+      document.getElementById("section-fastgood").setAttribute("fill", !state.cheap ? "#FBCFE8" : "#F1F5F9");
+      document.getElementById("section-fastgood-dots").style.display = !state.cheap ? "" : "none";
+      document.getElementById("section-cheapgood").setAttribute("fill", !state.fast ? "#FDE68A" : "#F1F5F9");
+      document.getElementById("section-cheapgood-dots").style.display = !state.fast ? "" : "none";
 
-      // Corners
-      renderCorner("fast", state.fast, "#38BDF8", "#0EA5E9", "#0C4A6E", "#CBD5E1", "#94A3B8", "#475569");
-      renderCorner("cheap", state.cheap, "#4ADE80", "#22C55E", "#14532D", "#CBD5E1", "#94A3B8", "#475569");
-      renderCorner("good", state.good, "#FB923C", "#F97316", "#7C2D12", "#CBD5E1", "#94A3B8", "#475569");
-
-      // Action lines
-      document.getElementById("lines-fast").style.display = state.fast ? "" : "none";
-      document.getElementById("lines-cheap").style.display = state.cheap ? "" : "none";
-      document.getElementById("lines-good").style.display = state.good ? "" : "none";
+      // Corner speech bubbles
+      var bubbleColors = {
+        fast:  { active: "#38BDF8", inactive: "#CBD5E1", activeText: "#0C4A6E", inactiveText: "#475569" },
+        cheap: { active: "#4ADE80", inactive: "#CBD5E1", activeText: "#14532D", inactiveText: "#475569" },
+        good:  { active: "#FB923C", inactive: "#CBD5E1", activeText: "#7C2D12", inactiveText: "#475569" }
+      };
+      ["fast", "cheap", "good"].forEach(function(c) {
+        var on = state[c];
+        var col = bubbleColors[c];
+        document.getElementById("bubble-bg-" + c).setAttribute("fill", on ? col.active : col.inactive);
+        document.getElementById("bubble-label1-" + c).setAttribute("fill", on ? col.activeText : col.inactiveText);
+        document.getElementById("bubble-label2-" + c).setAttribute("fill", on ? col.activeText : col.inactiveText);
+        for (var i = 1; i <= 3; i++) {
+          document.getElementById("trail-" + c + "-" + i).setAttribute("fill", on ? col.active : col.inactive);
+        }
+      });
 
       // Buttons
       document.querySelectorAll(".toggle-btn").forEach(function(btn) {
@@ -759,27 +774,6 @@
       });
     }
 
-    function renderCorner(name, active, fillActive, rectActive, textActive, fillInactive, rectInactive, textInactive) {
-      document.getElementById("corner-" + name).setAttribute("fill", active ? fillActive : fillInactive);
-      document.getElementById("label-bg-" + name).setAttribute("fill", active ? fillActive : fillInactive);
-      document.getElementById("label1-" + name).setAttribute("fill", active ? textActive : textInactive);
-      document.getElementById("label2-" + name).setAttribute("fill", active ? textActive : textInactive);
-
-      // Outer rect behind label
-      var labelBg = document.getElementById("label-bg-" + name);
-      var outerRect = labelBg.previousElementSibling;
-      if (outerRect && outerRect.tagName === "rect") {
-        outerRect.setAttribute("fill", active ? rectActive : rectInactive);
-      }
-    }
-
-    // Event listeners for corner clicks
-    document.querySelectorAll(".corner-group").forEach(function(g) {
-      g.addEventListener("click", function() {
-        toggle(g.getAttribute("data-corner"));
-      });
-    });
-
     // Event listeners for buttons
     document.querySelectorAll(".toggle-btn").forEach(function(btn) {
       btn.addEventListener("click", function() {
@@ -787,12 +781,7 @@
       });
     });
 
-    // Hover effects for corners
-    document.querySelectorAll(".corner-group").forEach(function(g) {
-      var poly = g.querySelector(".corner-polygon");
-      g.addEventListener("mouseenter", function() { poly.style.transform = "scale(1.05)"; });
-      g.addEventListener("mouseleave", function() { poly.style.transform = "scale(1)"; });
-    });
-  </script>
+    render();
+</script>
 </body>
 </html>
