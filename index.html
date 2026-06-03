@@ -138,6 +138,18 @@
       gap: 1.5rem;
     }
 
+    /* Register gradient colour stops as animatable custom properties */
+    @property --bubble-color-from {
+      syntax: '<color>';
+      inherits: false;
+      initial-value: #94a3b8;
+    }
+    @property --bubble-color-to {
+      syntax: '<color>';
+      inherits: false;
+      initial-value: #64748b;
+    }
+
     /* Speech bubble */
     .speech-bubble-wrapper {
       position: relative;
@@ -154,7 +166,8 @@
       max-width: 26rem;
       border: 4px solid #000;
       box-shadow: 7px 7px 0 0 #000;
-      transition: all 0.3s ease-in-out;
+      background: linear-gradient(135deg, var(--bubble-color-from), var(--bubble-color-to));
+      transition: all 0.3s ease-in-out, --bubble-color-from 0.3s ease-in-out, --bubble-color-to 0.3s ease-in-out;
       font-family: 'Chalkboard SE', cursive, system-ui, sans-serif;
     }
 
@@ -221,13 +234,13 @@
     }
 
     /* Tradeoff color states */
-    .tradeoff-cheapfast { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+    .tradeoff-cheapfast { --bubble-color-from: #8b5cf6; --bubble-color-to: #7c3aed; }
     .tradeoff-cheapfast .speech-tail { border-top-color: #8b5cf6; }
-    .tradeoff-fastgood { background: linear-gradient(135deg, #ec4899, #f43f5e); }
+    .tradeoff-fastgood { --bubble-color-from: #ec4899; --bubble-color-to: #f43f5e; }
     .tradeoff-fastgood .speech-tail { border-top-color: #ec4899; }
-    .tradeoff-cheapgood { background: linear-gradient(135deg, #f59e0b, #f97316); }
+    .tradeoff-cheapgood { --bubble-color-from: #f59e0b; --bubble-color-to: #f97316; }
     .tradeoff-cheapgood .speech-tail { border-top-color: #f59e0b; }
-    .tradeoff-default { background: linear-gradient(135deg, #94a3b8, #64748b); }
+    .tradeoff-default { --bubble-color-from: #94a3b8; --bubble-color-to: #64748b; }
     .tradeoff-default .speech-tail { border-top-color: #94a3b8; }
 
     /* SVG triangle */
