@@ -209,42 +209,13 @@
       opacity: 0.95;
       letter-spacing: 0.02em;
     }
-
-    .speech-tail {
-      position: absolute;
-      bottom: -20px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 0;
-      height: 0;
-      border-left: 16px solid transparent;
-      border-right: 16px solid transparent;
-      border-top: 20px solid;
-      transition: border-top-color 0.3s;
-    }
-
-    .speech-tail-shadow {
-      position: absolute;
-      bottom: -27px;
-      left: calc(50% + 7px);
-      transform: translateX(-50%);
-      width: 0;
-      height: 0;
-      border-left: 18px solid transparent;
-      border-right: 18px solid transparent;
-      border-top: 22px solid #000;
-      z-index: -1;
-    }
+    
 
     /* Tradeoff color states */
     .tradeoff-cheapfast { --bubble-color-from: #8b5cf6; --bubble-color-to: #7c3aed; }
-    .tradeoff-cheapfast .speech-tail { border-top-color: #8247f0; }
     .tradeoff-fastgood { --bubble-color-from: #ec4899; --bubble-color-to: #f43f5e; }
-    .tradeoff-fastgood .speech-tail { border-top-color: #f04275; }
     .tradeoff-cheapgood { --bubble-color-from: #f59e0b; --bubble-color-to: #f97316; }
-    .tradeoff-cheapgood .speech-tail { border-top-color: #f78412; }
     .tradeoff-default { --bubble-color-from: #94a3b8; --bubble-color-to: #64748b; }
-    .tradeoff-default .speech-tail { border-top-color: #78879e; }
     
 
     /* SVG triangle */
@@ -525,8 +496,6 @@
           <div id="emoji-badge" class="emoji-badge">CHOOSE!</div>
           <h3 id="tradeoff-title">PICK TWO!</h3>
           <p id="tradeoff-desc">Click on the corners to choose your constraints and discover the trade-off!</p>
-          <div class="speech-tail"></div>
-          <div class="speech-tail-shadow"></div>
         </div>
       </div>
 
